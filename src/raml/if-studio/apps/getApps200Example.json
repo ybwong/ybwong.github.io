@@ -1,0 +1,14 @@
+[
+    {
+        "client_id": "0a6f41c0-da71-4942-9de7-caadea5b5614",
+        "app_type": "backend_app",
+        "app_name": " backend app",
+        "app_info": "an updated test app for testing"
+    },
+    {
+        "client_id": "9bdb4345-cc71-4edf-9acb-68f75c17917c",
+        "app_type": "endpoint_app",
+        "app_name": "mobile app",
+        "app_info": "a mobile app to access endpoint"
+    }
+]

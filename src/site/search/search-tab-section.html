@@ -1,0 +1,10 @@
+<div ng-show="search.isDocumentation()">
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="sectionItem in search.searchResults">
+    <div class="product-box">
+      <a role="button" href="{{sectionItem.url}}" aria-expanded="false" style='text-decoration:none;'>
+        <div class="intro-heading inner">{{sectionItem.question}}</div>
+        <p>... {{sectionItem.intro}} ...</p>
+      </a>
+    </div>
+  </div>
+</div>

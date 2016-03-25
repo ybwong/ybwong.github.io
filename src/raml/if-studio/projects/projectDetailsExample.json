@@ -1,0 +1,18 @@
+{
+  "org_name" : "test org 2",
+  "org_info" : "updating org registration",
+  "org_roles": [
+    {
+       "role_name": "LOANER",
+       "role_description": "person taking a loan"
+    }
+  ]
+  "org_quota" : {
+    "org_type" : "free",
+    "max_endpoints" : 2,
+    "max_backends" : 1,
+    "max_services" : 0,
+    "max_admins" : 2,
+    "max_users" : 1000
+  }
+}

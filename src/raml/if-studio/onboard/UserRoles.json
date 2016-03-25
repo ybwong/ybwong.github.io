@@ -1,0 +1,20 @@
+{
+    "title": "Get Projects Response Schema",
+    "type" : "array",
+    "items" : {
+        "title": "User Roles Schema",
+        "type": "object",
+        "properties": {
+            "account_id": {
+                "type": "string"
+            },
+            "user_roles": {
+                "type": "array",
+                "description": "roles assigned to user for the org: cab be USER/ADMIN or any of the custom roles defined for project",
+                "items": {
+                    "type" : "string"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,37 @@
+{
+  "title": "Application Registration Request Schema",
+  "type": "object",
+  "properties": {
+    "app_type": {
+      "type": "string",
+      "description": "type of application: must be backend_app"
+    },
+    "app_name": {
+      "type": "string",
+      "description": "name of application"
+    },
+    "app_info": {
+      "type": "string",
+      "description": "summary information about application"
+    },
+    "redirect_urls": {
+      "type": "array",
+      "description": "a list of registered redirect urls for token grant",
+      "items": {
+        "type": "string"
+      }
+    },
+    "app_secret": {
+      "type": "string",
+      "description": "password for app's OAuth token requests"
+    },
+    "encryption_key": {
+      "type": "string",
+      "description": "a symmetric encryption key for Openid connect ID response validation"
+    },
+    "privacy_url": {
+      "type": "string",
+      "description": "a link to application's privacy policies"
+    }
+  }
+}

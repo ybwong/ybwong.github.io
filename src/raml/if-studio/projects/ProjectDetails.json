@@ -1,0 +1,51 @@
+{
+    "title": "Project Registration Details Schema",
+    "type": "object",
+    "properties": {
+        "org_name": {
+            "type": "string",
+            "description" : "name of project/org"
+        },
+        "org_info": {
+            "type": "string",
+            "description" : "summary information about project/org"
+        },
+        "org_roles": {
+            "type": "array",
+            "description": "custom roles defined for project/org",
+            "items": {
+                "type" : "object",
+                "properties" : {
+                    "role_name": {
+                        "type": "string",
+                        "description" : "name of custom role"
+                    },
+                    "role_description": {
+                        "type": "string",
+                        "description" : "informational description of this role"
+                    }                    
+                }
+            }
+        },
+        "org_quota": {
+            "org_type" : {
+                "type" : "string"
+            },
+            "max_endpoints" : {
+                "type" : "integer"
+            },
+            "max_backends" : {
+                "type" : "integer"
+            },
+            "max_services" : {
+                "type" : "integer"
+            },
+            "max_admins" : {
+                "type" : "integer"
+            },
+            "max_users" : {
+                "type" : "integer"
+            }
+        }
+    }
+}

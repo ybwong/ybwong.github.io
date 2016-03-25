@@ -1,0 +1,50 @@
+.product-bg {
+	background-color: rgba(91, 222, 217, 0.50);
+	text-align: center;
+}
+
+.label-circle {
+	height: 50px;
+	width: 50px;
+	font-size: 30px;
+	background-color: rgba(91, 222, 217, 0.50);
+	border: 2px solid;
+	border-radius: 30px;
+	margin-bottom: 2px;
+	margin-left: 10px;
+}
+
+.intro-heading {
+	/*background-color: rgba(222, 91, 145, 0.98);*/
+	background-color: #FF8D00;
+	font-size: 20px;
+	margin-bottom: 2px;
+	min-height: 33px;
+	text-align: left;
+}
+
+.intro-body {
+	font-size: 14px;
+	margin-bottom: 2px;	
+	text-align: left;
+}
+
+.panel-intro {
+	font-size: 30px;
+	margin-bottom: 2px;	
+	text-align: left;
+}
+
+.product-box {
+	background-color: rgba(33, 95, 92, 0.5);
+	border: 2px solid;
+	border-radius: 10px;
+	margin-bottom: 20px;
+}
+.pricing-box {
+	background-color: rgba(160, 53, 19, 0.50);
+	border: 2px solid;
+	border-radius: 10px;
+	margin-top: 10px;
+	margin-bottom: 2px;
+}

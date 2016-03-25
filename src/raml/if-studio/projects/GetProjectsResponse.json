@@ -1,0 +1,21 @@
+{
+    "title": "Get Projects Response Schema",
+    "type" : "array",
+    "items" : {
+        "type": "object",
+        "properties": {
+            "org_id": {
+                "type": "string",
+                "description" : "UUID of the project/org"
+            },
+            "org_name": {
+                "type": "string",
+                "description" : "name of project/org"
+            },
+            "org_info": {
+                "type": "string",
+                "description" : "summary information about project/org"
+            }
+        }
+    }
+}

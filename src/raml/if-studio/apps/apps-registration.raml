@@ -1,0 +1,172 @@
+#%RAML 0.8
+title: iF Studio Apps
+version: 1
+protocols: [ HTTPS ]
+baseUri: https://dev-portal-service.appspot.com/api/v1
+mediaType: application/json
+schemas:
+    - AppRegistration: !include AppRegistrationRequest.json
+      AppRegistrationResponse: !include AppRegistrationResponse.json
+      GetAppsResponse: !include GetAppsResponse.json
+
+/projects/{orgId}/apps:
+    displayName: App Registrations
+    uriParameters:
+        orgId:
+            displayName: orgId
+            description: UUID of project
+            type: string
+    description: |
+        Application registration APIs for registered iF Studio developers. This API call must contain
+        an OAuth2 bearer token from an iF User with "ADMIN" role for the project (assigned automatically when user created a project, or when an existing admin explicitly invites another iF User as admin).
+    get:
+        description: |
+            Get all applications registered for project
+        headers:
+            Authorization:
+                description: Authorization header with OAuth2 bearer token from iF IDP service
+                example: Bearer 0cb3887a-7f68-490a-bf15-c89aff96a6fb
+        responses:
+            200:
+                description: found registered applications
+                body:
+                    application/json:
+                        example: !include getApps200Example.json
+                        schema: GetAppsResponse
+            401:
+                description: Bearer token authentication failed
+                body:
+                    application/json:
+                        example: !include ../common/401Example.json
+            403:
+                description: User is not an ADMIN for the project
+                body:
+                    application/json:
+                        example: !include ../common/403Example.json
+            404:
+                description: no applications registered for project
+    post:
+        description: |
+            Register a new application with the project.
+        headers:
+            Authorization:
+                description: Authorization header with OAuth2 bearer token from iF IDP service
+                example: Bearer 0cb3887a-7f68-490a-bf15-c89aff96a6fb
+        body:
+            application/json:
+                example: !include appRegistrationExample.json
+                schema: AppRegistration
+
+        responses:
+            201:
+                description: new application registered successfully
+                body:
+                    application/json:
+                        schema: AppRegistrationResponse
+                        example: !include appRegistration201Example.json
+            401:
+                description: Bearer token authentication failed
+                body:
+                    application/json:
+                        example: !include ../common/401Example.json
+            403:
+                description: User is not an ADMIN for the project
+                body:
+                    application/json:
+                        example: !include ../common/403Example.json
+            404:
+                description: project does not exists
+
+/projects/{orgId}/apps/{clientId}:
+    displayName: App Management
+    uriParameters:
+        orgId:
+            displayName: orgId
+            description: UUID of project
+            type: string
+        clientId:
+            displayName: clientId
+            description: UUID of application
+            type: string
+    description: |
+        Application management APIs for registered iF Studio developers. This API call must contain
+        an OAuth2 bearer token from an iF User with "ADMIN" role for the project (assigned automatically when user created a project, or when an existing admin explicitly invites another iF User as admin).
+    get:
+        description: |
+            Get application details
+        headers:
+            Authorization:
+                description: Authorization header with OAuth2 bearer token from iF IDP service
+                example: Bearer 0cb3887a-7f68-490a-bf15-c89aff96a6fb
+        responses:
+            200:
+                description: found application details
+                body:
+                    application/json:
+                        example: !include appRegistrationExample.json
+                        schema: AppRegistration
+            401:
+                description: Bearer token authentication failed
+                body:
+                    application/json:
+                        example: !include ../common/401Example.json
+            403:
+                description: User is not an ADMIN for the project
+                body:
+                    application/json:
+                        example: !include ../common/403Example.json
+            404:
+                description: application does not exists
+    put:
+        description: |
+            Update registration details of an application.
+        headers:
+            Authorization:
+                description: Authorization header with OAuth2 bearer token from iF IDP service
+                example: Bearer 0cb3887a-7f68-490a-bf15-c89aff96a6fb
+        body:
+            application/json:
+                example: !include appRegistrationExample.json
+                schema: AppRegistration
+
+        responses:
+            200:
+                description: project updated successfully
+                body:
+                    application/json:
+                        example: !include appRegistrationExample.json
+                        schema: AppRegistration
+            401:
+                description: Bearer token authentication failed
+                body:
+                    application/json:
+                        example: !include ../common/401Example.json
+            403:
+                description: User is not an ADMIN for the project
+                body:
+                    application/json:
+                        example: !include ../common/403Example.json
+            404:
+                description: application does not exists
+    delete:
+        description: |
+            Delete an application registration.
+        headers:
+            Authorization:
+                description: Authorization header with OAuth2 bearer token from iF IDP service
+                example: Bearer 0cb3887a-7f68-490a-bf15-c89aff96a6fb
+        responses:
+            204:
+                description: application deleted successfully
+            401:
+                description: Bearer token authentication failed
+                body:
+                    application/json:
+                        example: !include ../common/401Example.json
+            403:
+                description: User is not an ADMIN for the project
+                body:
+                    application/json:
+                        example: !include ../common/403Example.json
+            404:
+                description: application does not exists

@@ -1,0 +1,31 @@
+{
+    "title": "Project Registration Request Schema",
+    "type": "object",
+    "properties": {
+        "org_name": {
+            "type": "string",
+            "description" : "name of project/org"
+        },
+        "org_info": {
+            "type": "string",
+            "description" : "summary information about project/org"
+        },
+        "org_roles": {
+            "type": "array",
+            "description": "custom roles defined for project/org",
+            "items": {
+                "type" : "object",
+                "properties" : {
+                    "role_name": {
+                        "type": "string",
+                        "description" : "name of custom role"
+                    },
+                    "role_description": {
+                        "type": "string",
+                        "description" : "informational description of this role"
+                    }                    
+                }
+            }
+        }
+    }
+}

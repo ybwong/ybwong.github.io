@@ -1,0 +1,25 @@
+{
+    "title": "Project Invitation Roles Schema",
+    "type" : "array",
+    "items" : {
+        "title": "Invitation Roles Schema",
+        "type": "object",
+        "properties": {
+            "id_type": {
+                "description": "Identity type, must be username | email",
+                "type": "string"
+            },
+            "id_key": {
+                "description": "actual identity key of the user",
+                "type": "string"
+            },
+            "user_roles": {
+                "type": "array",
+                "description": "roles assigned to user for the org: cab be USER/ADMIN or any of the custom roles defined for project",
+                "items": {
+                    "type" : "string"
+                }
+            }
+        }
+    }
+}

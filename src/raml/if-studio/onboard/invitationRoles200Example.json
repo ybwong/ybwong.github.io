@@ -1,0 +1,17 @@
+[
+  {
+  "id_key" : "test@gmail.com",
+  "id_type" : "email",
+  "user_roles" : [
+    "USER"
+    ]
+  },
+  {
+  "id_key" : "admin@gmail.com",
+  "id_type" : "email",
+  "user_roles" : [
+    "USER",
+    "ADMIN"
+    ]
+  }
+]

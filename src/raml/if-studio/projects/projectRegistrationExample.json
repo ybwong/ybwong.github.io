@@ -1,0 +1,10 @@
+{
+  "org_name" : "test project",
+  "org_info" : "a test project to test project registration",
+  "org_roles": [
+    {
+       "role_name": "SUSBCRIBER",
+       "role_description": "a subscriber for my test project"
+    }
+  ]
+}

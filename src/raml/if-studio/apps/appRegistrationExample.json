@@ -1,0 +1,11 @@
+{
+  "app_type" : "backend_app",
+  "app_secret" : "Secret123",
+  "encryption_key" : "a.secret.key",
+  "redirect_urls" : [
+    "http://localhost:8080"
+    ],
+  "privacy_url" : "http://localhost:8080/privacy.html",
+  "app_name" : "test app",
+  "app_info" : "a test app for testing"
+}

@@ -1,0 +1,16 @@
+{
+    "title": "Self Onboarding Registration Schema",
+    "type": "object",
+    "properties": {
+        "account_id": {
+            "type": "string"
+        },
+        "user_roles": {
+            "type": "array",
+            "description": "roles assigned to user for iF Studio org",
+            "items": {
+                "type" : "string"
+            }
+        }
+    }
+}

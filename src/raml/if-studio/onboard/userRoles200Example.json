@@ -1,0 +1,14 @@
+[
+    {
+        "account_id": "119edc86-3d49-4436-80bc-0200065007f0",
+        "user_roles": [
+            "ADMIN", "USER"
+        ]
+    },
+    {
+        "account_id": "df3edc86-3d49-4436-80bc-0204566500763",
+        "user_roles": [
+            "USER"
+        ]
+    }
+]

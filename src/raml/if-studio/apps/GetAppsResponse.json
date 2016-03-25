@@ -1,0 +1,25 @@
+{
+  "title": "Get Applications Response Schema",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "client_id": {
+        "type": "string",
+        "description": "UUID assigned to application"
+      },
+      "app_type": {
+        "type": "string",
+        "description": "type of application: must be backend_app"
+      },
+      "app_name": {
+        "type": "string",
+        "description": "name of application"
+      },
+      "app_info": {
+        "type": "string",
+        "description": "summary information about application"
+      }
+    }
+  }
+}

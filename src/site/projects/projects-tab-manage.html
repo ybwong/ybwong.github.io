@@ -1,17 +1,48 @@
-<div class="cover-container" ng-show="projects.currState('update')">
-    <h1>{{projects.currProject.org_name}}</h1>
-    <hr>
-    <form name="updateProject" align="left" ng-submit="projects.submitProjectUpdate()" novalidate>
-        <h4>Update project:</h4>
-        <div class="form-group">
-            <input ng-model="projects.currProject.org_name" type="text" class="form-control"  value="{{projects.currProject.org_name}}" ng-required="required">
-        </div>
-        <div class="form-group">
-            <input ng-model="projects.currProject.org_info" type="textarea" class="form-control" value="{{projects.currProject.org_info}}" ng-required="required">
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-success pull-left">Update</button>
-            <div ng-click="projects.reset()" class="btn btn-default pull-right">Cancel</div>
-        </div>
-    </form>
+<div class="cover-container">
+  <h1>{{projects.currProject.org_name}}</h1>
+  <hr>
+  <form name="updateProject" align="left" ng-submit="projects.submitProjectUpdate()" novalidate>
+    <h4>Update project:</h4>
+    <div class="form-group">
+      <input ng-model="projects.currProject.org_name" type="text" class="form-control" value="{{projects.currProject.org_name}}" ng-required="required">
+    </div>
+    <div class="form-group">
+      <input ng-model="projects.currProject.org_info" type="textarea" class="form-control" value="{{projects.currProject.org_info}}" ng-required="required">
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-success pull-left">Update</button>
+      <div class="btn btn-default pull-right" ui-sref="Projects">Cancel</div>
+    </div>
+  </form>
+  <button class="btn btn-sm btn-warning pull-right" ng-click="projects.launchModal($index)">Manage</button>
+  <table class="table" ng-show="projects.appList.length">
+    <thead>
+      <td>App Name</td>
+      <td>App Info</td>
+      <td>App Type</td>
+      <td></td>
+      <td></td>
+    </thead>
+    <tbody ng-repeat="app in projects.appList">
+      <tr>
+        <td>{{app.app_name}}</td>
+        <td>{{app.app_info}}</td>
+        <td>{{app.app_type}}</td>
+        <td>
+          <button class="btn btn-sm btn-warning pull-right" ng-click="projects.launchModal($index)">Manage</button>
+        </td>
+        <td>
+          <button class="btn btn-sm btn-danger pull-right" ng-click="projects.removeApp($index)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <form>
+    <form-group>
+      <button type="submit" class="btn btn-success pull-left" ng-click="projects.launchModal(-1)">Add</button>
+    </form-group>
+  </form>
+  <div style="clear:both"></div>
+  <p></p>
 </div>
+<div ui-view="modal"></div>

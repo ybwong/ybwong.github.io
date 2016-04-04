@@ -3,12 +3,13 @@
     <h3 class="masthead-brand">iF <strong>STUDIO</strong></h3>
     <nav>
       <ul class="nav masthead-nav">
-        <li ng-class="{ active:headers.isSet(1) }"><a href="" ng-click="headers.setTab(1)">Home</a></li>
-        <li ng-class="{ active:headers.isSet(4) }"><a href="" ng-click="headers.setTab(4)">FAQ</a></li>
-        <li ng-class="{ active:headers.isSet(5) }"><a href="" ng-click="headers.setTab(5)">Issues</a></li>
-        <li ng-hide="portalCtrl.isGuest()" ng-class="{ active:headers.isSet(2) }"><a href="" ng-click="headers.setTab(2)">Projects</a></li>
-        <!-- <li ng-class="{ active:headers.isSet(3) }"><a href="" ng-click="headers.setTab(3)">Apps</a></li> -->
-        <li><button class="btn btn-warning" ng-click="portalCtrl.doLoginToggle()">{{portalCtrl.getLoginToggle()}}</button></li>
+        <li><a href="" ui-sref="Home">Home</a></li>        
+        <li><a href="">FAQ</a></li>
+        <li><a href="" ui-sref="Issues">Issues</a></li>
+        <li ng-hide="portalCtrl.isGuest()"><a href="" ui-sref="Projects">Projects</a></li>
+        <li>
+          <button class="btn btn-warning" ng-click="portalCtrl.doLoginToggle()">{{portalCtrl.getLoginToggle()}}</button>
+        </li>
       </ul>
     </nav>
   </div>

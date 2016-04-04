@@ -79,10 +79,10 @@
 			$window.location.hash='';
 
 			// Verify that we have a token grant
-			if (params['access_token']) {
+			if (params['/access_token']) {
 			  // remove hash fragments from location
 			  $log.log("found access_token in hash, validating it");
-			  validateToken(params['access_token'], returnTo);
+			  validateToken(params['/access_token'], returnTo);
 			} else if (params['error']){
 			  $log.log("Token authorization failed: ", params['error_description']);
 			}

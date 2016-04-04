@@ -1,0 +1,124 @@
+(function() {
+
+  'use strict';
+
+  angular
+    .module('projects-templates')
+    .controller('ProjectsManageCtrl', ProjectsManageCtrl);
+
+  /* *ngInject */
+  function ProjectsManageCtrl($log, $state, $stateParams, IfStudioClient, AppService, ProjectsService) {
+    var vm = this;
+
+    vm.currProject = undefined;
+
+    vm.add = add;
+    vm.launchModal = launchModal;
+    vm.removeApp = removeApp;
+    vm.startProjectUpdate = startProjectUpdate;
+
+    //////////
+
+    function launchModal(appIndex) {
+      vm.appModel.currAppIndex = appIndex;
+      $state.go("ProjectsManage.AppInput");
+    }
+
+    function removeApp(appIndex) {
+      vm.appModel.appList.splice(appIndex, 1);
+    }
+
+    function add(orgId) {
+      $log.log('projectManageCtrl.add()');
+
+      var app = {
+        "app_type": "backend_app",
+        "app_secret": "Secret123",
+        "encryption_key": "a.secret.key",
+        "redirect_urls": [
+          "http://localhost:8080"
+        ],
+        "privacy_url": "http://localhost:8080/privacy.html",
+        "app_name": "test app",
+        "app_info": "a test app for testing"
+      };
+
+      var appId;
+      var p1 = IfStudioClient.getAllApps(orgId, function(data) {
+        $log.log('data ' + data);
+        appId = data[0].client_id;
+      }, function(response) {
+        $log.log('response ' + response);
+      });
+
+      var p2 = p1.then(function(data) {
+        return IfStudioClient.deleteApp(orgId, data[0].client_id, function(data) {
+          $log.log('delete success');
+        }, function(response) {
+          $log.log('delete fail');
+        });
+      }).then(function(data) {
+        return IfStudioClient.registerApp(orgId, app, function(data) {
+          $log.log('register success');
+        }, function(response) {
+          $log.log('register failed');
+        });
+      });
+
+
+      p2.then(function(data) {
+        return IfStudioClient.getAllApps(orgId, function(data) {
+          $log.log('data ' + data);
+        }, function(response) {
+          $log.log('response ' + response);
+        });
+      });
+    }
+
+    vm.submitProjectUpdate = function() {
+      $log.log("submitting project update", vm.currProject);
+      IfStudioClient.updateProject(vm.curr_org_id, vm.currProject, function(data) {
+        $log.log("updated project", data);
+        // vm.reset();
+      }, function(error) {
+        $log.log("Failed to update project", error);
+        // vm.reset();
+      });
+    };
+
+    function startProjectUpdate(index) {
+      var curr_roles = '';
+      var orgId = vm.myProjects[index].org_id;
+      var currProject;
+
+      $log.log("requesting project", orgId);
+      IfStudioClient.getProjectDetails(orgId, function(data) {
+        $log.log("got project details", data);
+        vm.currProject = data;
+        if (data.org_roles && data.org_roles.length > 0) {
+          curr_roles = data.org_roles.toString();
+        } else {
+          curr_roles = undefined;
+        }
+        ProjectsService.setCurrProject(vm.currProject, 'create', curr_roles);
+      }, function(error) {
+        $log.log("Failed to get project", error);
+      });
+    };
+
+    function init() {
+      vm.myProjects = ProjectsService.getAllProjects();
+      var projectIndex = $stateParams.projectIndex;
+
+      vm.startProjectUpdate(projectIndex);
+
+      vm.appModel = AppService.getAppModel();
+      // vm.appModel.modelReady.then(function() {
+      //   vm.appList = vm.appModel.appList;
+      // });
+    }
+    $log.log('projectManageCtrl.js');
+
+    init();
+  }
+})();

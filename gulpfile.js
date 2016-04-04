@@ -9,6 +9,9 @@ var filter = require('gulp-filter');
 var concat = require('gulp-concat');
 var csso = require('gulp-csso');
 var browserSync = require('browser-sync');
+var uglify = require('gulp-uglify');
+var rename = require("gulp-rename");
+var jshint = require('gulp-jshint');
 var reload = browserSync.reload;
 
 var CWD = path.resolve('.');
@@ -16,10 +19,11 @@ var CWD = path.resolve('.');
 // var API_DEST = path.resolve(CWD, '../server/static/docs/api');
 var API_SPEC = '../src/raml/**/*.raml';
 var API_DEST = '../api-docs/';
-var API_HTML = function (path) {
-    path.dirname = '';
-    path.extname = ".html"
+var API_HTML = function(path) {
+  path.dirname = '';
+  path.extname = ".html"
 };
+var minifiedJsFileName = 'if.min.js';
 
 function raml2html(options) {
   var gutil = require('gulp-util');
@@ -35,16 +39,28 @@ function raml2html(options) {
   switch (options.type) {
     case 'json':
       var Q = require('q');
-      options.config = {processRamlObj: function(raml) { return Q.fcall(function() {
-        return JSON.stringify(raml, options.replacer, 'indent' in options ? options.indent : 2);
-      })}};
+      options.config = {
+        processRamlObj: function(raml) {
+          return Q.fcall(function() {
+            return JSON.stringify(raml, options.replacer, 'indent' in options ? options.indent : 2);
+          })
+        }
+      };
       break;
     case 'yaml':
       var Q = require('q');
       var yaml = require('js-yaml');
-      options.config = {processRamlObj: function(raml) { return Q.fcall(function() {
-        return yaml.safeDump(raml, {skipInvalid: true, indent: options.indent, flowLevel: options.flowLevel});
-      })}};
+      options.config = {
+        processRamlObj: function(raml) {
+          return Q.fcall(function() {
+            return yaml.safeDump(raml, {
+              skipInvalid: true,
+              indent: options.indent,
+              flowLevel: options.flowLevel
+            });
+          })
+        }
+      };
       break;
     default:
       options.type = 'html';
@@ -77,8 +93,7 @@ function raml2html(options) {
             fail(JSON.stringify(error, null, 2));
           });
         });
-    }
-    else if (file.isStream()) fail('Streams are not supported: ' + file.inspect());
+    } else if (file.isStream()) fail('Streams are not supported: ' + file.inspect());
     else if (file.isNull()) fail('Input file is null: ' + file.inspect());
   });
 
@@ -102,14 +117,18 @@ gulp.task('apidoc', function() {
 
 gulp.task('apijson', function() {
   return gulp.src(API_SPEC)
-    .pipe(raml2html({type: 'json'}))
+    .pipe(raml2html({
+      type: 'json'
+    }))
     .on('error', logErrorAndQuit)
     .pipe(gulp.dest(API_DEST));
 });
 
 gulp.task('apiyaml', function() {
   return gulp.src(API_SPEC)
-    .pipe(raml2html({type: 'yaml'}))
+    .pipe(raml2html({
+      type: 'yaml'
+    }))
     .on('error', logErrorAndQuit)
     .pipe(gulp.dest(API_DEST));
 });
@@ -124,23 +143,36 @@ gulp.task('apilint', function() {
     .pipe(raml.reporter('fail'));
 });
 
-gulp.task('clean', function(cb){
+gulp.task('clean', function(cb) {
   del([API_DEST, '../*.html', '../js', '../images', '../styles'], cb);
 });
 
-gulp.task('devclean', function(){
-  return del(['./dev/**/*'], {force: true});
+
+gulp.task('distclean', function() {
+  return del(['./dist/**/*'], {
+    force: true
+  });
+});
+
+gulp.task('devclean', function() {
+  return del(['./dev/**/*'], {
+    force: true
+  });
 });
 
 
-gulp.task('styles', function(){
- var injectAppFiles = gulp.src('../src/styles/*.scss', {read: false});
- var injectGlobalFiles = gulp.src('../src/global/*.scss', {read: false});
- 
+gulp.task('styles', function() {
+  var injectAppFiles = gulp.src('../src/styles/*.scss', {
+    read: false
+  });
+  var injectGlobalFiles = gulp.src('../src/global/*.scss', {
+    read: false
+  });
+
   function transformFilepath(filepath) {
     return '@import "' + filepath + '";';
   }
- 
+
   var injectAppOptions = {
     transform: transformFilepath,
     starttag: '// inject:app',
@@ -156,23 +188,29 @@ gulp.task('styles', function(){
   };
 
   return gulp.src('../src/scss/main.scss')
-  	.pipe(wiredep())
-  	.pipe(inject(injectGlobalFiles, injectGlobalOptions))
-  	.pipe(inject(injectAppFiles, injectAppOptions))
-    .pipe(debug({title: 'unicorn:'}))
+    .pipe(wiredep())
+    .pipe(inject(injectGlobalFiles, injectGlobalOptions))
+    .pipe(inject(injectAppFiles, injectAppOptions))
+    .pipe(debug({
+      title: 'unicorn:'
+    }))
     .pipe(sass())
     .pipe(csso())
     .pipe(gulp.dest('../styles'));
 });
 
-gulp.task('devstyles', function(){
- var injectAppFiles = gulp.src('./src/styles/*.scss', {read: false});
- var injectGlobalFiles = gulp.src('./src/global/*.scss', {read: false});
- 
+gulp.task('devstyles', function() {
+  var injectAppFiles = gulp.src('./src/styles/*.scss', {
+    read: false
+  });
+  var injectGlobalFiles = gulp.src('./src/global/*.scss', {
+    read: false
+  });
+
   function transformFilepath(filepath) {
     return '@import "' + filepath + '";';
   }
- 
+
   var injectAppOptions = {
     transform: transformFilepath,
     starttag: '// inject:app',
@@ -198,7 +236,8 @@ gulp.task('devstyles', function(){
 
 gulp.task('html', ['apidoc', 'styles', 'js', 'images'], function() {
   var injectFiles = gulp.src(['../styles/*.css',
-    '../js/*.js']);
+    '../js/*.js'
+  ]);
 
   var injectOptions = {
     // addRootSlash: false,
@@ -214,7 +253,8 @@ gulp.task('html', ['apidoc', 'styles', 'js', 'images'], function() {
 
 gulp.task('devhtml', ['apidoc', 'devstyles', 'devjs', 'devimages'], function() {
   var injectFiles = gulp.src(['./dev/styles/*.css',
-    './dev/js/*.js']);
+    './dev/js/*.js', './dev/site/**/*.js'
+  ]);
 
   var injectOptions = {
     // addRootSlash: false,
@@ -225,13 +265,38 @@ gulp.task('devhtml', ['apidoc', 'devstyles', 'devjs', 'devimages'], function() {
 
   return gulp.src('./src/**/*.html')
     .pipe(inject(injectFiles, injectOptions))
-    .pipe(wiredep())
+    .pipe(wiredep({
+      fileTypes: {
+        html: {
+          replace: {
+            js: function(filePath) {
+              var path = filePath.replace('../bower_components/', '');
+              return '<script src="' + path + '"></script>';
+            },
+            css: function(filePath) {
+              var path = filePath.replace('../bower_components/', '');
+              return '<link rel="stylesheet" href="' + path + '"/>';
+            }
+          }
+        }
+      }
+
+    }))
     .pipe(gulp.dest('./dev/'));
+
 });
 
-gulp.task('js', function() {
-  return gulp.src('../src/**/*.js')
-    .pipe(gulp.dest('../'));
+
+gulp.task('minjs', function() {
+  return gulp.src(['./src/**/*.js'])
+    .pipe(concat(minifiedJsFileName))
+    .pipe(uglify())
+    .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('js', ['minjs'], function() {
+  return gulp.src(['bower_components/**/*.min.js'])
+    .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('devjs', function() {
@@ -250,7 +315,7 @@ gulp.task('devimages', function() {
 });
 
 // Watch files for changes & reload
-gulp.task('serve', ['html'], function () {
+gulp.task('serve', ['html'], function() {
   browserSync({
     notify: false,
     // Customize the BrowserSync console logging prefix
@@ -270,7 +335,13 @@ gulp.task('serve', ['html'], function () {
   gulp.watch(['../src/api/**/*.{raml,json,txt}'], ['apidoc', reload]);
 });
 
-gulp.task('dev', ['devhtml'], function () {
+gulp.task('lint', function() {
+  return gulp.src(['./src/**/*.js', '!./src/**/*.min.js', '!./src/**/min.*.js'])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
+});
+
+gulp.task('dev', ['devhtml'], function() {
   browserSync({
     notify: false,
     // Customize the BrowserSync console logging prefix
@@ -282,14 +353,13 @@ gulp.task('dev', ['devhtml'], function () {
     server: ['./dev/']
   });
 
-  gulp.watch(['../src/**/*.html'], ['html', reload]);
-  gulp.watch(['../src/**/*.png'], ['images', reload]);
-  gulp.watch(['../src/styles/**/*.{scss,css}'], ['styles', reload]);
-  gulp.watch(['../src/global/**/*.{scss,css}'], ['styles', reload]);
-  gulp.watch(['../src/**/*.js'], ['js', reload]);
-  gulp.watch(['../src/api/**/*.{raml,json,txt}'], ['apidoc', reload]);
+  gulp.watch(['./src/**/*.html'], ['devhtml', reload]);
+  gulp.watch(['./src/**/*.png'], ['devimages', reload]);
+  gulp.watch(['./src/styles/**/*.{scss,css}'], ['devstyles', reload]);
+  gulp.watch(['./src/global/**/*.{scss,css}'], ['devstyles', reload]);
+  gulp.watch(['./src/**/*.js'], ['devjs', reload]);
+  gulp.watch(['./src/api/**/*.{raml,json,txt}'], ['apidoc', reload]);
 });
 
-gulp.task('default', [ 'apidoc', 'styles', 'js', 'images', 'html','serve'], function(){
-});
 
+gulp.task('default', ['apidoc', 'styles', 'js', 'images', 'html', 'serve'], function() {});

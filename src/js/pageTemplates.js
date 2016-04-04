@@ -1,5 +1,5 @@
 (function(){
-	var app = angular.module('page-templates', []);
+	var app = angular.module('page-templates', ['Core']);
 
 	app.factory('TabTracker', function($window, $log){
 		var currTab = 1;

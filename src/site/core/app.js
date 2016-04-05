@@ -43,6 +43,9 @@ angular.module('Core', ["ui.router"])
 
     $stateProvider.state("ProjectsManage.AppInput", {
       parent: 'ProjectsManage',
+      params : {
+        appIndex: null
+      },
       views: {
         "modal": {
           templateUrl: '../site/application/appInputModal.html',

@@ -102,6 +102,14 @@
                 $log.log("removing project " + orgId);
                 httpReq('DELETE', apiBase + 'projects/' + orgId, null, onSuccess, onError);
             },
+            registerApp: function(orgId, app, onSuccess, onError) {
+                $log.log("creating apps for project " + orgId + " with app details " + app);
+                httpReq('POST', apiBase + 'projects/' + orgId + '/apps', app, onSuccess, onError);
+            },
+            updateApp: function(orgId, clientId, app, onSuccess, onError) {
+                $log.log("creating apps for project " + orgId + " clientId " + clientId + " with app details " + app);
+                httpReq('PUT', apiBase + 'projects/' + orgId + '/apps/' + clientId, app, onSuccess, onError);
+            },
             getAllApps: function(orgId, onSuccess, onError) {
                 $log.log("getting all apps for poject " + orgId);
                 httpReq('GET', apiBase + 'projects/' + orgId + '/apps', null, onSuccess, onError);

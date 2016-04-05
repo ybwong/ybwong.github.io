@@ -20,8 +20,9 @@
     //////////
 
     function launchModal(appIndex) {
-      vm.appModel.currAppIndex = appIndex;
-      $state.go("ProjectsManage.AppInput");
+      $state.go("ProjectsManage.AppInput", {
+        'appIndex': appIndex
+      });
     }
 
     function removeApp(appIndex) {
@@ -100,7 +101,14 @@
         } else {
           curr_roles = undefined;
         }
-        ProjectsService.setCurrProject(vm.currProject, 'create', curr_roles);
+        ProjectsService.setCurrProject(orgId, vm.currProject, 'create', curr_roles);
+        AppService.getAllApps(orgId, function(data) {
+          vm.appList = data;
+          AppService.setModelProjectOrgId(orgId);
+          AppService.setModelAppList(data);
+        }, function(error) {
+
+        });
       }, function(error) {
         $log.log("Failed to get project", error);
       });

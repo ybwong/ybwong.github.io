@@ -17,7 +17,7 @@
   };
 
   /* *ngInject */
-  function AppService($log, IfStudioClient) {
+  function AppService($q, $log, IfStudioClient) {
 
     var app = {
       app_type: '',
@@ -81,7 +81,11 @@
       updateApp: updateApp,
       createApp: createApp,
       getAppModel: getAppModel,
-      initAppModel: initAppModel
+      initAppModel: initAppModel,
+      setModelAppList: setModelAppList,
+      getModelAppList: getModelAppList,
+      setModelProjectOrgId: setModelProjectOrgId,
+      getModelProjectOrgId: getModelProjectOrgId
     }
 
     return service;
@@ -95,16 +99,19 @@
       return new App();
     }
 
-    function getAllApps(orgId) {
-      return IfStudioClient.getAllApps(orgId, noop, noop);
+    function getAllApps(orgId, success, failure) {
+      return IfStudioClient.getAllApps(orgId, success, failure);
+      // var deferred = $q.defer();
+      // deferred.resolve(model.appList);
+      // return deferred.promise;
     }
 
-    function updateApp(orgId, appId, app) {
-      return IfStudioClient.updateApp(orgId, appId, app, noop, noop);
+    function updateApp(orgId, appId, app, success, failure) {
+      return IfStudioClient.updateApp(orgId, appId, app, success, failure);
     }
 
-    function createApp(orgId, app) {
-      return IfStudioClient.registerApp(orgId, app, noop, noop);
+    function createApp(orgId, app, success, failure) {
+      return IfStudioClient.registerApp(orgId, app, success, failure);
     }
 
     function getAppModel() {
@@ -113,6 +120,22 @@
 
     function initAppModel() {
       model = {};
+    }
+
+    function setModelAppList(appList) {
+      model.appList = angular.copy(appList);
+    }
+
+    function getModelAppList() {
+      return angular.copy(model.appList);
+    }
+
+    function setModelProjectOrgId(orgId) {
+      model.projectOrgId = orgId;
+    }
+
+    function getModelProjectOrgId() {
+      return model.projectOrgId;
     }
 
   }

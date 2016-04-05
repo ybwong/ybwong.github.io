@@ -31,9 +31,11 @@
             <label>Privacy URL</label>
             <input ng-model="appInputCtrl.app.privacy_url" type="textarea" class="form-control" value="{{appInputCtrl.app.privacy_url}}" ng-required="required">
           </div>
-          <div class="form-group">
-            <label>Redirect URL</label>
-            <input ng-model="appInputCtrl.app.redirect_urls" type="textarea" class="form-control" value="{{appInputCtrl.app.redirect_urls}}" ng-required="required">
+          <div ng-repeat="redirectUrl in appInputCtrl.app.redirect_urls">
+            <div class="form-group">
+              <label>Redirect URL</label>
+              <input ng-model="redirectUrl" type="textarea" class="form-control" value="{{redirectUrl}}" ng-required="required">
+            </div>
           </div>
         </form>
       </div>
@@ -44,5 +46,3 @@
     </div>
   </div>
 </div>
-
-

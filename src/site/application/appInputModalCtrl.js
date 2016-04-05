@@ -7,8 +7,10 @@
     .controller('AppInputModalCtrl', AppInputModalCtrl);
 
   /* *ngInject */
-  function AppInputModalCtrl($log, $state, IfStudioClient, AppService) {
+  function AppInputModalCtrl($log, $state, $stateParams, IfStudioClient, AppService) {
     var vm = this;
+
+    vm.appIndex = undefined;
 
     vm.app = {
       app_type: "",
@@ -33,16 +35,17 @@
     function done() {
       var app = angular.copy(vm.app);
       delete app.client_id;
-      if (vm.appModel.currAppIndex < 0) {
-        AppService.createApp(vm.model.orgId, app).then(function(appId) {
-          vm.app.client_id = appId;
-          vm.appModel.appList[vm.appModel.appList.length] = angular.copy(vm.app);
+      if (vm.appIndex < 0) {
+        app.redirect_urls = ["abc"];
+        AppService.createApp(AppService.getModelProjectOrgId(), app, function(appId) {
+          // vm.app.client_id = appId;
+          // vm.appModel.appList[vm.appModel.appList.length] = angular.copy(vm.app);
         }, function() {
 
         });
       } else {
-        AppService.createApp(vm.model.orgId, vm.app.client_id, app).then(function(appId) {
-          vm.appModel.appList[vm.appModel.currAppIndex] = angular.copy(vm.app);
+        AppService.updateApp(AppService.getModelProjectOrgId(), vm.app.client_id, app, function(appId) {
+          // vm.appModel.appList[vm.appModel.currAppIndex] = angular.copy(vm.app);
         }, function() {
 
         });
@@ -50,14 +53,15 @@
     }
 
     function init() {
-      vm.appModel = AppService.getAppModel();
+      vm.appList = AppService.getModelAppList();
+      vm.appIndex = $stateParams.appIndex;
+
 
       // populate UI
-      var appIndex = vm.appModel.currAppIndex;
-      if (appIndex < 0) {
+      if (vm.appIndex < 0) {
         vm.app = AppService.newApp();
       } else {
-        vm.app = angular.copy(vm.appModel.appList[appIndex]);
+        vm.app = angular.copy(vm.appList[vm.appIndex]);
       }
 
       $('#myModal').modal()

@@ -23,7 +23,7 @@
       getCurrProject: getCurrProject,
       setCurrProject: setCurrProject,
       getAllProjects: getAllProjects,
-      setAllProjects: setAllProjects      
+      setAllProjects: setAllProjects
     };
 
     function reset() {
@@ -41,7 +41,8 @@
       model.curr_roles = '';
     };
 
-    function setCurrProject(currProject, state) {
+    function setCurrProject(orgId, currProject, state, currRoles) {
+      model.currProjectOrgId = orgId;
       model.currProject = angular.copy(currProject);
       model.state = state;
       model.curr_roles = '';
@@ -56,7 +57,7 @@
     }
 
     function setAllProjects(myProjects) {
-    	model.myProjects = angular.copy(myProjects);
+      model.myProjects = angular.copy(myProjects);
     }
   }
 })();

@@ -11,6 +11,7 @@
     var vm = this;
 
     vm.currProject = undefined;
+    vm.appList = undefined;
 
     vm.add = add;
     vm.launchModal = launchModal;
@@ -26,7 +27,12 @@
     }
 
     function removeApp(appIndex) {
-      vm.appModel.appList.splice(appIndex, 1);
+      AppService.deleteApp(AppService.getModelProjectOrgId(), vm.appList[appIndex].client_id, function(appId) {
+        vm.appList.splice(appIndex, 1);
+      }, function() {
+        // Notification failure
+      });
+
     }
 
     function add(orgId) {
@@ -103,13 +109,15 @@
         }
         ProjectsService.setCurrProject(orgId, vm.currProject, 'create', curr_roles);
         AppService.getAllApps(orgId, function(data) {
-          vm.appList = data;
           AppService.setModelProjectOrgId(orgId);
           AppService.setModelAppList(data);
+          vm.appList = AppService.getModel().appList;
         }, function(error) {
-
+          AppService.setModelProjectOrgId(orgId);
+          AppService.setModelAppList([]);
         });
       }, function(error) {
+
         $log.log("Failed to get project", error);
       });
     };
@@ -117,10 +125,8 @@
     function init() {
       vm.myProjects = ProjectsService.getAllProjects();
       var projectIndex = $stateParams.projectIndex;
-
       vm.startProjectUpdate(projectIndex);
 
-      vm.appModel = AppService.getAppModel();
       // vm.appModel.modelReady.then(function() {
       //   vm.appList = vm.appModel.appList;
       // });

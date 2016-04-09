@@ -10,7 +10,9 @@
     this.app_type = '';
     this.app_secret = '';
     this.encryption_key = '';
-    this.redirect_urls = [];
+    this.redirect_urls = [{
+      'url': ''
+    }];
     this.privacy_url = '';
     this.app_name = '';
     this.app_info = '';
@@ -18,16 +20,6 @@
 
   /* *ngInject */
   function AppService($q, $log, IfStudioClient) {
-
-    var app = {
-      app_type: '',
-      app_secret: '',
-      encryption_key: '',
-      redirect_urls: [],
-      privacy_url: '',
-      app_name: '',
-      app_info: ''
-    };
 
     var model = {
       currAppIndex: 0,
@@ -78,9 +70,12 @@
     var service = {
       newApp: newApp,
       getAllApps: getAllApps,
+      getApp,
+      getApp,
       updateApp: updateApp,
       createApp: createApp,
-      getAppModel: getAppModel,
+      deleteApp: deleteApp,
+      getModel: getModel,
       initAppModel: initAppModel,
       setModelAppList: setModelAppList,
       getModelAppList: getModelAppList,
@@ -110,11 +105,19 @@
       return IfStudioClient.updateApp(orgId, appId, app, success, failure);
     }
 
+    function getApp(orgId, appId, success, failure) {
+      return IfStudioClient.getAppDetails(orgId, appId, success, failure);
+    }
+
     function createApp(orgId, app, success, failure) {
       return IfStudioClient.registerApp(orgId, app, success, failure);
     }
 
-    function getAppModel() {
+    function deleteApp(orgId, appId, success, failure) {
+      return IfStudioClient.removeApp(orgId, appId, success, failure);
+    }
+
+    function getModel() {
       return model;
     }
 

@@ -106,6 +106,10 @@
                 $log.log("creating apps for project " + orgId + " with app details " + app);
                 httpReq('POST', apiBase + 'projects/' + orgId + '/apps', app, onSuccess, onError);
             },
+            getAppDetails: function(orgId, clientId, onSuccess, onError) {
+                $log.log("get app details for project " + orgId + " clientId " + clientId);
+                httpReq('GET', apiBase + 'projects/' + orgId + '/apps/' + clientId, null, onSuccess, onError);
+            },
             updateApp: function(orgId, clientId, app, onSuccess, onError) {
                 $log.log("creating apps for project " + orgId + " clientId " + clientId + " with app details " + app);
                 httpReq('PUT', apiBase + 'projects/' + orgId + '/apps/' + clientId, app, onSuccess, onError);
@@ -114,10 +118,10 @@
                 $log.log("getting all apps for poject " + orgId);
                 httpReq('GET', apiBase + 'projects/' + orgId + '/apps', null, onSuccess, onError);
             },
-            getAppDetails: function(orgId, clientId, onSuccess, onError) {
-                $log.log("getting app details for " + clientId);
-                httpReq('GET', apiBase + 'projects/' + orgId + '/apps/' + clientId, null, onSuccess, onError);
-            }
+            removeApp: function(orgId, appId, onSuccess, onError) {
+                $log.log("removing appId " + appId);
+                httpReq('DELETE', apiBase + 'projects/' + orgId + '/apps/' + appId, null, onSuccess, onError);
+            },
         };
     });
 })();

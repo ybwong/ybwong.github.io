@@ -84,7 +84,8 @@
 
     vm.submitProjectUpdate = function() {
       $log.log("submitting project update", vm.currProject);
-      IfStudioClient.updateProject(vm.curr_org_id, vm.currProject, function(data) {
+      var orgId = vm.myProjects[vm.projectIndex].org_id;
+      IfStudioClient.updateProject(orgId, vm.currProject, function(data) {
         $log.log("updated project", data);
         // vm.reset();
       }, function(error) {
@@ -124,8 +125,8 @@
 
     function init() {
       vm.myProjects = ProjectsService.getAllProjects();
-      var projectIndex = $stateParams.projectIndex;
-      vm.startProjectUpdate(projectIndex);
+      vm.projectIndex = $stateParams.projectIndex;
+      vm.startProjectUpdate(vm.projectIndex);
 
       // vm.appModel.modelReady.then(function() {
       //   vm.appList = vm.appModel.appList;

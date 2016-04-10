@@ -116,6 +116,7 @@
         }, function(error) {
           AppService.setModelProjectOrgId(orgId);
           AppService.setModelAppList([]);
+          vm.appList = AppService.getModel().appList;
         });
       }, function(error) {
 

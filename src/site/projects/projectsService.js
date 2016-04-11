@@ -57,7 +57,7 @@
     }
 
     function setAllProjects(myProjects) {
-      model.myProjects = angular.copy(myProjects);
+      model.myProjects = myProjects;
     }
   }
 })();

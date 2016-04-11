@@ -1,27 +1,29 @@
-<div align="left">
-  <h1>Manage your projects:
-  <button class="btn btn-success pull-right" ui-sref="ProjectsCreate" ng-click="projects.startNewProject()" >Create New
-  </button>
-  </h1>
-  <table class="table" ng-show="projects.myProjects.length">
-    <thead>
-      <td>Project Name</td>
-      <td>Project Info</td>
-      <td></td>
-      <td></td>
-    </thead>
-    <tbody ng-repeat="project in projects.myProjects track by $index">
-      <tr>
-        <td>{{project.org_name}}</td>
-        <td>{{project.org_info}}</td>
-        <td>
-          <button class="btn btn-sm btn-warning pull-right" ui-sref="ProjectsManage({projectIndex: $index})">Manage</button>
-        </td>
-        <td>
-          <button class="btn btn-sm btn-danger pull-right" ng-click="projects.removeProject($index)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <p class="lead" ng-hide="projects.myProjects.length">You do not have any projects currently</p>
+<div class="cover-container">
+  <div align="left">
+    <h1>Manage your projects:
+    <button class="btn btn-success pull-right" ui-sref="ProjectsCreate" ng-click="projects.startNewProject()">Create New
+    </button>
+    </h1>
+    <table class="table" ng-show="projects.myProjects.length">
+      <thead>
+        <td>Project Name</td>
+        <td>Project Info</td>
+        <td></td>
+        <td></td>
+      </thead>
+      <tbody ng-repeat="project in projects.myProjects track by $index">
+        <tr>
+          <td>{{project.org_name}}</td>
+          <td>{{project.org_info}}</td>
+          <td>
+            <button class="btn btn-sm btn-warning pull-right" ui-sref="ProjectsManage({projectIndex: $index})">Manage</button>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-danger pull-right" ng-click="projects.removeProject($index)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="lead" ng-hide="projects.myProjects.length">You do not have any projects currently</p>
+  </div>
 </div>

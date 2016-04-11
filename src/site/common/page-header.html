@@ -1,17 +1,19 @@
-<div class="masthead clearfix">
-  <div class="inner">
-    <h3 class="masthead-brand">iF <strong>STUDIO</strong></h3>
-    <nav>
-      <ul class="nav masthead-nav">
-        <li><a href="" ui-sref="Home">Home</a></li>        
-        <li><a href="">FAQ</a></li>
-        <li><a href="" ui-sref="Issues">Issues</a></li>
-        <li ng-hide="portalCtrl.isGuest()"><a href="" ui-sref="Projects">Projects</a></li>
-        <li>
-          <button class="btn btn-warning" ng-click="portalCtrl.doLoginToggle()">{{portalCtrl.getLoginToggle()}}</button>
-        </li>
-      </ul>
-    </nav>
+<div class="cover-container">
+  <div class="masthead clearfix">
+    <div class="inner">
+      <h3 class="masthead-brand">iF <strong>STUDIO</strong></h3>
+      <nav>
+        <ul class="nav masthead-nav">
+          <li><a href="" ui-sref="Home">Home</a></li>
+          <li><a href="">FAQ</a></li>
+          <li><a href="" ui-sref="Issues">Issues</a></li>
+          <li ng-hide="portalCtrl.isGuest()"><a href="" ui-sref="Projects">Projects</a></li>
+          <li>
+            <button class="btn btn-warning" ng-click="portalCtrl.doLoginToggle()">{{portalCtrl.getLoginToggle()}}</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </div>
 <!-- <nav class="navbar navbar-inverse navbar-fixed-top">

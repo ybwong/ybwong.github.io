@@ -251,7 +251,7 @@ gulp.task('html', ['apidoc', 'styles', 'js', 'images'], function() {
     .pipe(gulp.dest('../'));
 });
 
-gulp.task('devhtml', ['apidoc', 'devstyles', 'devjs', 'devimages'], function() {
+gulp.task('devhtml', ['apidoc', 'devstyles', 'devjs', 'devimages', 'devfonts'], function() {
   var injectFiles = gulp.src(['./dev/styles/*.css',
     './dev/js/*.js', './dev/site/**/*.js'
   ]);
@@ -312,6 +312,11 @@ gulp.task('images', function() {
 gulp.task('devimages', function() {
   return gulp.src('./src/images/*.png')
     .pipe(gulp.dest('./dev/images'));
+});
+
+gulp.task('devfonts', function() {
+  return gulp.src('./bower_components/bootstrap-sass/assets/fonts/**/*')
+    .pipe(gulp.dest('./dev/fonts'));
 });
 
 // Watch files for changes & reload

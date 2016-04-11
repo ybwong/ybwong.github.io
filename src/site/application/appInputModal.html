@@ -37,7 +37,7 @@
               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </button>
             <div ng-repeat="redirectUrl in appInputCtrl.app.redirect_urls track by $index">
-              <div class="flex-container">
+              <div class="modal-row-container">
                 <input ng-model="redirectUrl.url" type="textarea" class="form-control" ng-required="required">
                 <button class="btn btn-danger pull-right" ng-click="appInputCtrl.remove($index)">
                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>

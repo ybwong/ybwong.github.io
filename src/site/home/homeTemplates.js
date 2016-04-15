@@ -1,42 +1,45 @@
 (function(){
 	var app = angular.module('home-templates', ['page-templates']);
 
-	app.directive('homeTab', function(TabTracker){
-		return {
-			restrict: 'E',
-			templateUrl: '/site/home/home-tab.html',
-			controller: function($log){
-				this.myTab = 1;
-				this.isActive = function() {
-					return this.myTab === TabTracker.getCurrTab();
-				};
-				this.getSectionItems = function() {
-					return homeSectionItems;
-				}
-			},
-			controllerAs: 'home'
-		};
-	});
+	// app.directive('homeTab', function(TabTracker){
+	// 	return {
+	// 		restrict: 'E',
+	// 		templateUrl: '/site/home/home-tab.html',
+	// 		controller: function($log){
+	// 			this.myTab = 1;
+	// 			this.isActive = function() {
+	// 				return this.myTab === TabTracker.getCurrTab();
+	// 			};
+	// 			this.getSectionItems = function() {
+	// 				return homeSectionItems;
+	// 			}
+	// 		},
+	// 		controllerAs: 'home'
+	// 	};
+	// });
 
-	app.directive('homeTabGuest', function(){
-		return {
-			restrict: 'E',
-			templateUrl: '/site/home/home-tab-guest.html'
-		};
-	});
+	// app.directive('homeTabGuest', function(){
+	// 	return {
+	// 		restrict: 'E',
+	// 		templateUrl: '/site/home/home-tab-guest.html'
+	// 	};
+	// });
 
-	app.directive('homeTabUser', function(){
-		return {
-			restrict: 'E',
-			templateUrl: '/site/home/home-tab-user.html'
-		};
-	});
+	// app.directive('homeTabUser', function(){
+	// 	return {
+	// 		restrict: 'E',
+	// 		templateUrl: '/site/home/home-tab-user.html'
+	// 	};
+	// });
 
 	app.directive('homeTabSection', function(){
 		return {
 			restrict: 'E',
 			templateUrl: '/site/home/home-tab-section.html',
 			controller: function($log) {
+				this.getSectionItems = function() {
+					return homeSectionItems;
+				};
 				this.getTitle = function(index) {
 					return homeSectionItems[index].title;
 				};

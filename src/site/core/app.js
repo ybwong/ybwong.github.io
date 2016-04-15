@@ -15,7 +15,9 @@ angular.module('Core', ["ui.router"])
       }
     })
     .state('Home.Guest', {
-      templateUrl: '/site/home/home-tab-guest.html'
+      templateUrl: '/site/home/home-tab-guest.html',
+      controller: 'SectionsCtrl',
+      controllerAs: 'sections'
     })
     .state('Home.User', {
       templateUrl: '/site/home/home-tab-user.html'

@@ -1,12 +1,12 @@
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="sectionItem in home.getSectionItems() track by $index">
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="sectionItem in sections.getSectionItems() track by $index">
   <div class="product-box">
     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-intro-{{$index}}" aria-expanded="false" aria-controls="collapse-intro-{{$index}}" style='text-decoration:none;'>
-      <div class="intro-heading inner" ng-bind-html="section.getTitle($index) | sanitize">
+      <div class="intro-heading inner" ng-bind-html="sections.getTitle($index) | sanitize">
       </div>
-      <p><div ng-bind-html="section.getIntro($index) | sanitize"></div></p>
+      <p><div ng-bind-html="sections.getIntro($index) | sanitize"></div></p>
     </a>
     <div id="collapse-intro-{{$index}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-intro-{{$index}}">
-      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-intro-{{$index}}" aria-expanded="false" aria-controls="collapse-intro-{{$index}}" style='text-decoration:none;'><div class="intro-body inner" ng-bind-html="section.getBody($index) | sanitize"><
+      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-intro-{{$index}}" aria-expanded="false" aria-controls="collapse-intro-{{$index}}" style='text-decoration:none;'><div class="intro-body inner" ng-bind-html="sections.getBody($index) | sanitize"><
       </div></a>
     </div>
   </div>

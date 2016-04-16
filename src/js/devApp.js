@@ -1,5 +1,5 @@
 (function(){
-	var app = angular.module('devPortal', ['Core', 'search-templates', 'page-templates', 'home-templates', 'projects-templates', 'apps-templates', 'idp-oauth-client', 'if-studio-client']);
+	var app = angular.module('devPortal', ['Core', 'search-templates', 'page-templates', 'projects-templates', 'apps-templates', 'idp-oauth-client', 'if-studio-client']);
 
 	app.controller('DevPortalController', function(IfProjects, IdpClient, $log, $state){
 		var ref = this;

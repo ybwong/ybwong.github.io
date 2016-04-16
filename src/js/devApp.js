@@ -1,7 +1,7 @@
 (function(){
 	var app = angular.module('devPortal', ['Core', 'search-templates', 'page-templates', 'home-templates', 'projects-templates', 'apps-templates', 'idp-oauth-client', 'if-studio-client']);
 
-	app.controller('DevPortalController', function(IfProjects, IdpClient, $log){
+	app.controller('DevPortalController', function(IfProjects, IdpClient, $log, $state){
 		var ref = this;
 
 		IdpClient.idpInitialize(function(){
@@ -16,7 +16,9 @@
 		this.doLoginToggle = function() {
 			if (IdpClient.isAuthenticated()) {
 				IdpClient.idpLogout();
+				$state.transitionTo('GoHome');
 			} else {
+				$log.log("current state is", $state.current.name);
 				IdpClient.idpLogin(function(){
 					IfProjects.loadAllProjects(function() {
 			        $log.log('all projects loaded');

@@ -5,8 +5,29 @@ angular.module('Core', ["ui.router"])
   .config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state("Home", {
-      templateUrl: '/site/home/home-tab.html'
+      template: '<ui-view/>',
+      controller: function($state, IdpClient) {
+        if (IdpClient.isAuthorized('USER', 'devnet-alpha.integratingfactor.com')) {
+          $state.transitionTo('Home.User');
+        } else {
+          $state.transitionTo('Home.Guest');
+        }
+      }
+    })
+    .state('Home.Guest', {
+      templateUrl: '/site/home/home-tab-guest.html',
+      controller: 'SectionsCtrl',
+      controllerAs: 'sections'
+    })
+    .state('Home.User', {
+      templateUrl: '/site/home/home-tab-user.html'
     });
+
+    $stateProvider.state("GoHome", {
+      controller: function($state) {
+          $state.transitionTo('Home');
+      }
+    })
 
     $stateProvider.state("Issues", {
       templateUrl: '/site/search/search-tab.html'

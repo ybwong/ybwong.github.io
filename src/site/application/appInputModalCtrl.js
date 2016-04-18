@@ -101,10 +101,10 @@
           });
       }
 
-      $('#myModal').modal()
+      $('#myModal').modal();
       $('#myModal').on('hidden.bs.modal', function(e) {
         vm.close();
-      })
+      });
     }
 
     init();

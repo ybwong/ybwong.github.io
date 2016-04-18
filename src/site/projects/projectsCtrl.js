@@ -34,12 +34,12 @@
     function loadAllProjects() {
       if (!IdpClient.isAuthorized('USER', 'devnet-alpha.integratingfactor.com')) {
         return;
-      };
+      }
       IfProjects.loadAllProjects(function() {
         vm.myProjects = IfProjects.getAllProjects();
         ProjectsService.setAllProjects(vm.myProjects);
       });
-    };
+    }
 
     function startProjectUpdate(index) {
       var curr_roles = '';
@@ -59,7 +59,7 @@
       }, function(error) {
         $log.log("Failed to get project", error);
       });
-    };
+    }
 
     function init() {
       vm.loadAllProjects();

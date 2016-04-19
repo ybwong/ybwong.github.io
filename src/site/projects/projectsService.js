@@ -39,14 +39,14 @@
       model.currProject = {};
       model.state = 'create';
       model.curr_roles = '';
-    };
+    }
 
     function setCurrProject(orgId, currProject, state, currRoles) {
       model.currProjectOrgId = orgId;
       model.currProject = angular.copy(currProject);
       model.state = state;
       model.curr_roles = '';
-    };
+    }
 
     function getCurrProject() {
       return model.currProject;

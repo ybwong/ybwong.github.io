@@ -6,7 +6,7 @@
     .module('projects-templates')
     .controller('ProjectsManageCtrl', ProjectsManageCtrl);
 
-  /* *ngInject */
+  /* @ngInject */
   function ProjectsManageCtrl($log, $state, $stateParams, IfStudioClient, AppService, ProjectsService) {
     var vm = this;
 
@@ -122,7 +122,7 @@
 
         $log.log("Failed to get project", error);
       });
-    };
+    }
 
     function init() {
       vm.myProjects = ProjectsService.getAllProjects();

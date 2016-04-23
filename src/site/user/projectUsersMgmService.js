@@ -12,8 +12,8 @@
       getInvites: getInvites,
       addInvites: addInvites,
       deleteInviteRole: deleteInviteRole,
-      listUsers: listUsers,
-      updateUserRole: updateUserRole,
+      getUsersByRole: getUsersByRole,
+      updateUserRoles: updateUserRoles,
       deleteUser: deleteUser,
       selfOnBoard: selfOnBoard
     };
@@ -38,35 +38,35 @@
     function addInvites(orgId, invites) {
       return UserInviteService.update({
         orgId: orgId,
-        action: 'add',
+        action: 'add'
       }, invites).$promise;
     }
 
     function deleteInviteRole(orgId, invite) {
       return UserInviteService.update({
         orgId: orgId,
-        action: 'remove',
+        action: 'remove'
       }, invite).$promise;
     }
 
-    function listUsers(orgId, roles) {
-      return UserRegisterService.get({
+    function getUsersByRole(orgId, role) {
+      return UserRegisterService.query({
         orgId: orgId,
-        user_roles: roles
+        role: role
       }).$promise;
     }
 
-    function updateUserRole(orgId, accountId, role) {
-      return UserRegisterService.get({
+    function updateUserRoles(orgId, accountId, roles) {
+      return UserRegisterService.update({
         orgId: orgId,
         accountId: accountId,
-      }, role).$promise;
+      }, roles).$promise;
     }
 
     function deleteUser(orgId, accountId) {
-      return UserRegisterService.get({
+      return UserRegisterService.delete({
         orgId: orgId,
-        accountId: accountId,
+        accountId: accountId
       }).$promise;
     }
 

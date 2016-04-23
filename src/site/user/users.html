@@ -1,26 +1,21 @@
-<div ng-controller="ProjectUsersMgmCtrl as userManager">
+<div ng-controller="UsersCtrl as userManager">
   <h4>
       <a role="button" data-toggle="collapse" data-parent="#projectAccordion" href="#projectUser" aria-expanded="true" aria-controls="projectUser"> Manage Users:</a>
       </h4>
   <div id="projectUser" class="collapse in">
     <table class="table">
       <thead>
-        <td>Key ID</td>
-        <td>Key Type</td>
-        <td>Role</td>
+        <td>Account ID</td>
         <td></td>
+        <td>Role</td>
         <td>
-          <button class="btn btn-success pull-right" ng-click="userManager.launchModal(-1, '')">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-          </button>
         </td>
       </thead>
-      <tbody ng-repeat="invite in userManager.projectModel.invites">
+      <tbody ng-repeat="user in userManager.projectModel.users">
         <tr>
-          <td>{{invite.id_key}}</td>
-          <td>{{invite.id_type}}</td>
-          <td>{{invite.role}}</td>
+          <td>{{user.account_id}}</td>
           <td>
+          <td>{{user.role}}</td>
           </td>
           <td>
             <div class="pull-right">

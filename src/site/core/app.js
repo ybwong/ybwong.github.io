@@ -3,7 +3,7 @@
 
   // .module('devPortal', ["ui.router"])
   angular
-    .module('Core', ['ui.router', 'ngResource'])
+    .module('Core', ['ui.router', 'ngResource', 'ngPromiseExtras'])
     // .factory('HttpHeaderInterceptor', ['$window', function($window) {
     //   return {
     //     request: function(config) {
@@ -53,6 +53,19 @@
         controllerAs: 'projects'
       });
 
+      $stateProvider.state("Projects.Modal", {
+        params: {
+          projectI: null
+        },
+        views: {
+          "modal": {
+            templateUrl: '/site/projects/projectModal.html',
+            controller: 'ProjectModalCtrl',
+            controllerAs: 'projectModal'
+          }
+        }
+      });
+
       $stateProvider.state("ProjectsCreate", {
         templateUrl: '/site/projects/projects-tab-create.html',
         controller: 'ProjectsCreateCtrl',
@@ -94,7 +107,7 @@
         .state("ProjectsManage.User", {
           parent: 'ProjectsManage',
           params: {
-            inviteI: null,
+            userI: null,
             role: ''
           },
           views: {
@@ -103,7 +116,20 @@
               controller: 'UserModalCtrl',
               controllerAs: 'userModalCtrl'
             }
-
+          }
+        })
+        .state("ProjectsManage.Invite", {
+          parent: 'ProjectsManage',
+          params: {
+            inviteI: null,
+            role: ''
+          },
+          views: {
+            "modal": {
+              templateUrl: '../site/user/inviteModal.html',
+              controller: 'InviteModalCtrl',
+              controllerAs: 'inviteModalCtrl'
+            }
           }
         });
 

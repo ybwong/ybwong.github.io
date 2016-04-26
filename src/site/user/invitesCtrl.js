@@ -4,10 +4,10 @@
 
   angular
     .module('devPortal')
-    .controller('ProjectUsersMgmCtrl', ProjectUsersMgmCtrl);
+    .controller('InvitesCtrl', InvitesCtrl);
 
   /* @ngInject */
-  function ProjectUsersMgmCtrl($state, $stateParams, ProjectsService, ProjectUsersMgmService, ProjectModel) {
+  function InvitesCtrl($state, $stateParams, ProjectsService, ProjectUsersMgmService, ProjectModel) {
     var vm = this;
     vm.adminRoleInvites = [];
     vm.userRoleInvites = [];
@@ -20,7 +20,7 @@
     //////////
 
     function launchModal(inviteI, role) {
-      $state.go("ProjectsManage.User", {
+      $state.go("ProjectsManage.Invite", {
         'inviteI': inviteI,
         'role': role
       });

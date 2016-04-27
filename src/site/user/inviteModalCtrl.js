@@ -32,7 +32,7 @@
 
     function close() {
       $('#InviteModal').off('hidden.bs.modal');
-      $state.go('ProjectsManage');
+      $state.go('Projects.Edit');
     }
 
     function addRoles() {

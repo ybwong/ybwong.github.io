@@ -7,44 +7,54 @@
     .factory('ProjectsService', ProjectsService);
 
   /* @ngInject */
-  function ProjectsService() {
+  function ProjectsService($q, $log, IdpClient, IfStudioClient) {
 
-    var model = {};
-    model.myProjects = [];
-    model.currProject = {};
-    model.myApps = [];
-    model.currApp = {};
-    model.attempt = 0;
-    model.state = 'all';
-
-    return {
-      reset: reset,
-      startNewProject: startNewProject,
-      getCurrProject: getCurrProject,
-      setCurrProject: setCurrProject,
-      getAllProjects: getAllProjects,
-      setAllProjects: setAllProjects
+    var model = {
+      currProject: {},
+      projects: []
     };
 
-    function reset() {
-      model.myProjects = [];
-      model.currProject = {};
-      model.attempt = 0;
-      model.state = 'all';
+    //////////
 
-      model.curr_roles = '';
+    return {
+      loadAllProjects: loadAllProjects,
+      deleteProject: deleteProject,
+
+      getCurrProject: getCurrProject,
+      setCurrProject: setCurrProject,
+      getAllProjects: getAllProjects
+    };
+
+    function deleteProject(index) {
+      var deferred = $q.defer();
+      IfStudioClient.removeProject(model.projects[index].org_id, function(data) {
+        deferred.resolve(data);
+      }, function(error) {
+        deferred.reject(error);
+      });
+      return deferred.promise;
     }
 
-    function startNewProject() {
-      model.currProject = {};
-      model.state = 'create';
-      model.curr_roles = '';
+    function loadAllProjects() {
+      var deferred = $q.defer();
+
+      if (!IdpClient.isAuthorized('USER', 'devnet-alpha.integratingfactor.com')) {
+        return;
+      }
+      IfStudioClient.getAllProjects(function(data) {
+        model.projects = data;
+        deferred.resolve(model.projects);
+      }, function(error) {
+        $log.log(error);
+        model.projects = [];
+        deferred.reject(model.projects);
+      });
+      return deferred.promise;
     }
 
-    function setCurrProject(orgId, currProject, state, currRoles) {
+    function setCurrProject(orgId, currProject, currRoles) {
       model.currProjectOrgId = orgId;
       model.currProject = angular.copy(currProject);
-      model.state = state;
       model.curr_roles = '';
     }
 
@@ -53,11 +63,7 @@
     }
 
     function getAllProjects() {
-      return model.myProjects;
-    }
-
-    function setAllProjects(myProjects) {
-      model.myProjects = myProjects;
+      return model.projects;
     }
   }
 })();

@@ -20,7 +20,7 @@
     //////////
 
     function launchModal(inviteI, role) {
-      $state.go("ProjectsManage.Invite", {
+      $state.go("Projects.Edit.Invite", {
         'inviteI': inviteI,
         'role': role
       });

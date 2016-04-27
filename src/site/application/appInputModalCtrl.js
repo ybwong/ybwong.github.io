@@ -31,7 +31,7 @@
 
     function close() {
       $('#myModal').off('hidden.bs.modal');
-      $state.go('ProjectsManage');
+      $state.go('Projects.Edit');
     }
 
     function done() {

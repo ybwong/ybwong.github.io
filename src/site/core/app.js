@@ -18,6 +18,22 @@
     }])
     .config(function($stateProvider, $urlRouterProvider) {
 
+      // $stateProvider.state("Modal", {
+      //   template: '<div ui-view></div>',
+      //   onEnter: function() {
+      //     // save current state
+      //     // open modal
+      //     $('#projectModal').modal();
+      //     $('#projectModal').on('hidden.bs.modal', function(e) {
+      //       vm.close();
+      //     });
+      //   },
+      //   onExit: function() {
+      //     // return to current state
+      //     $state.go();
+      //   }
+      // });
+
       $stateProvider.state("Home", {
           template: '<ui-view/>',
           controller: function($state, IdpClient) {
@@ -47,51 +63,46 @@
         templateUrl: '/site/search/search-tab.html'
       });
 
-      $stateProvider.state("Projects", {
-        templateUrl: '/site/projects/projects-tab-all.html',
-        controller: 'ProjectsCtrl',
-        controllerAs: 'projects'
-      });
-
-      $stateProvider.state("Projects.Modal", {
-        params: {
-          projectI: null
-        },
-        views: {
-          "modal": {
-            templateUrl: '/site/projects/projectModal.html',
-            controller: 'ProjectModalCtrl',
-            controllerAs: 'projectModal'
-          }
-        }
-      });
-
-      $stateProvider.state("ProjectsCreate", {
-        templateUrl: '/site/projects/projects-tab-create.html',
-        controller: 'ProjectsCreateCtrl',
-        controllerAs: 'projects'
-      });
-
-      $stateProvider.state("ProjectsManage.Default", {
-        views: {
-          "modal": {
-            template: '<div></div>'
-          }
-        }
-      });
-
-      $stateProvider.state("ProjectsManage", {
-        params: {
-          projectIndex: null
-        },
-        templateUrl: '/site/projects/projects-tab-manage.html',
-        controller: 'ProjectsManageCtrl',
-        controllerAs: 'projects'
-      });
-
       $stateProvider
-        .state("ProjectsManage.AppInput", {
-          parent: 'ProjectsManage',
+        .state("Projects", {
+          templateUrl: '/site/projects/projects-tab-all.html',
+          controller: 'ProjectsCtrl',
+          controllerAs: 'projects'
+        })
+        .state("Projects.Modal", {
+          parent: 'Projects',
+          params: {
+            projectI: null
+          },
+          views: {
+            "modal": {
+              templateUrl: '/site/projects/projectModal.html',
+              controller: 'ProjectModalCtrl',
+              controllerAs: 'projectModal'
+            }
+          }
+        })
+        .state("Projects.Edit", {
+          params: {
+            projectIndex: null
+          },
+          templateUrl: '/site/projects/projects-tab-manage.html',
+          controller: 'ProjectsManageCtrl',
+          controllerAs: 'projects'
+        })
+        .state("Projects.Edit.Project", {
+          params: {
+            projectI: null
+          },
+          views: {
+            "modal": {
+              templateUrl: '/site/projects/projectModal.html',
+              controller: 'ProjectModalCtrl',
+              controllerAs: 'projectModal'
+            }
+          }
+        })
+        .state("Projects.Edit.Application", {
           params: {
             appIndex: null
           },
@@ -104,8 +115,7 @@
 
           }
         })
-        .state("ProjectsManage.User", {
-          parent: 'ProjectsManage',
+        .state("Projects.Edit.User", {
           params: {
             userI: null,
             role: ''
@@ -118,8 +128,7 @@
             }
           }
         })
-        .state("ProjectsManage.Invite", {
-          parent: 'ProjectsManage',
+        .state("Projects.Edit.Invite", {
           params: {
             inviteI: null,
             role: ''
@@ -132,6 +141,86 @@
             }
           }
         });
+
+      // $stateProvider.state("ProjectsCreate", {
+      //   templateUrl: '/site/projects/projects-tab-create.html',
+      //   controller: 'ProjectsCreateCtrl',
+      //   controllerAs: 'projects'
+      // });
+
+      // $stateProvider.state("ProjectsManage.Default", {
+      //   views: {
+      //     "modal": {
+      //       template: '<div></div>'
+      //     }
+      //   }
+      // });
+
+      // $stateProvider.state("ProjectsManage", {
+      //   params: {
+      //     projectIndex: null
+      //   },
+      //   templateUrl: '/site/projects/projects-tab-manage.html',
+      //   controller: 'ProjectsManageCtrl',
+      //   controllerAs: 'projects'
+      // });
+
+      // $stateProvider
+      //   .state("ProjectsManage.EditProject", {
+      //     parent: 'ProjectsManage',
+      //     params: {
+      //       projectI: null
+      //     },
+      //     views: {
+      //       "modal": {
+      //         templateUrl: '/site/projects/projectModal.html',
+      //         controller: 'ProjectModalCtrl',
+      //         controllerAs: 'projectModal'
+      //       }
+      //     }
+      //   })
+      //   .state("ProjectsManage.AppInput", {
+      //     parent: 'ProjectsManage',
+      //     params: {
+      //       appIndex: null
+      //     },
+      //     views: {
+      //       "modal": {
+      //         templateUrl: '../site/application/appInputModal.html',
+      //         controller: 'AppInputModalCtrl',
+      //         controllerAs: 'appInputCtrl'
+      //       }
+
+      //     }
+      //   })
+      //   .state("ProjectsManage.User", {
+      //     parent: 'ProjectsManage',
+      //     params: {
+      //       userI: null,
+      //       role: ''
+      //     },
+      //     views: {
+      //       "modal": {
+      //         templateUrl: '../site/user/userModal.html',
+      //         controller: 'UserModalCtrl',
+      //         controllerAs: 'userModalCtrl'
+      //       }
+      //     }
+      //   })
+      //   .state("ProjectsManage.Invite", {
+      //     parent: 'ProjectsManage',
+      //     params: {
+      //       inviteI: null,
+      //       role: ''
+      //     },
+      //     views: {
+      //       "modal": {
+      //         templateUrl: '../site/user/inviteModal.html',
+      //         controller: 'InviteModalCtrl',
+      //         controllerAs: 'inviteModalCtrl'
+      //       }
+      //     }
+      //   });
 
       $urlRouterProvider.otherwise('/');
     });

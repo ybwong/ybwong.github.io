@@ -32,7 +32,7 @@
 
     function close() {
       $('#UserModal').off('hidden.bs.modal');
-      $state.go('ProjectsManage');
+      $state.go('Projects.Edit');
     }
 
     function updateUserRoles() {

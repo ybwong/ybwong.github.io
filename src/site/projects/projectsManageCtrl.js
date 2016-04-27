@@ -14,15 +14,22 @@
     vm.appList = undefined;
 
     vm.add = add;
-    vm.launchModal = launchModal;
+    vm.launchApplicationModal = launchApplicationModal;
+    vm.launchProjectModal = launchProjectModal;
     vm.removeApp = removeApp;
     vm.startProjectUpdate = startProjectUpdate;
 
     //////////
 
-    function launchModal(appIndex) {
-      $state.go("ProjectsManage.AppInput", {
+    function launchApplicationModal(appIndex) {
+      $state.go("Projects.Edit.Application", {
         'appIndex': appIndex
+      });
+    }
+
+    function launchProjectModal() {
+      $state.go("Projects.Edit.Project", {
+        'projectI': vm.projectIndex
       });
     }
 
@@ -108,7 +115,7 @@
         } else {
           curr_roles = undefined;
         }
-        ProjectsService.setCurrProject(orgId, vm.currProject, 'create', curr_roles);
+        ProjectsService.setCurrProject(orgId, vm.currProject, curr_roles);
         AppService.getAllApps(orgId, function(data) {
           AppService.setModelProjectOrgId(orgId);
           AppService.setModelAppList(data);

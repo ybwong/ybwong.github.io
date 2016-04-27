@@ -16,7 +16,7 @@
     //////////
 
     function launchModal(userI, role) {
-      $state.go("ProjectsManage.User", {
+      $state.go("Projects.Edit.User", {
         'userI': userI,
         'role': role
       });

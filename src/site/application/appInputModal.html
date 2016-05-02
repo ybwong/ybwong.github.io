@@ -17,7 +17,11 @@
           </div>
           <div class="form-group">
             <label>Type</label>
-            <input ng-model="appInputCtrl.app.app_type" type="textarea" class="form-control" value="{{appInputCtrl.app.app_type}}" ng-required="required">
+            <select class="form-control" ng-model="appInputCtrl.app.app_type" ng-disabled="appInputCtrl.isDisabled">
+              <option>backend_app</option>            
+              <option>endpoint_app</option>
+              <option>service_app</option>              
+            </select>
           </div>
           <div class="form-group">
             <label>Secret</label>

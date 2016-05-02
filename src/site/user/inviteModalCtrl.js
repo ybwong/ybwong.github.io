@@ -6,7 +6,7 @@
     .controller('InviteModalCtrl', InviteModalCtrl);
 
   /* @ngInject */
-  function InviteModalCtrl($state, $stateParams, ProjectUsersMgmService, AppService, ProjectModel) {
+  function InviteModalCtrl($state, $stateParams, ProjectUsersMgmService, AppService, ProjectsService) {
     var vm = this;
 
     vm.modal = {
@@ -36,7 +36,7 @@
     }
 
     function addRoles() {
-      var orgId = AppService.getModelProjectOrgId();
+      var orgId = ProjectsService.getCurrProjectOrgId();
       var invite = {
         id_key: vm.modal.id_key,
         id_type: vm.modal.id_type,
@@ -52,7 +52,7 @@
     }
 
     function delRoles() {
-      var orgId = AppService.getModelProjectOrgId();
+      var orgId = ProjectsService.getCurrProjectOrgId();
       var invite = {
         id_key: vm.modal.id_key,
         id_type: vm.modal.id_type,
@@ -71,11 +71,11 @@
 
       if (vm.inviteI >= 0) {
         addRoles().finally(delRoles).finally(function() {
-          ProjectModel.listInvites();
+          ProjectsService.listInvites();
         });
       } else {
         addRoles().finally(function() {
-          ProjectModel.listInvites();
+          ProjectsService.listInvites();
         });
       }
     }
@@ -84,12 +84,16 @@
       vm.role = $stateParams.role;
       vm.inviteI = $stateParams.inviteI;
 
+      vm.modal.roles = _.map(ProjectsService.getRoles(), function(role) {
+        return { 'checked': false, 'id': role };
+      });
+
       if (vm.inviteI >= 0) {
         vm.isDisabled = true;        
-        var invite = angular.copy(ProjectModel.get().invites[vm.inviteI]);
+        var invite = angular.copy(ProjectsService.getModel().invites[vm.inviteI]);
         vm.modal.id_key = invite.id_key;
         vm.modal.id_type = invite.id_type;
-        var relatedInvites = _.filter(ProjectModel.get().invites, function(invite) {
+        var relatedInvites = _.filter(ProjectsService.getModel().invites, function(invite) {
           return vm.modal.id_key === invite.id_key;
         });
         var relatedRoles = _.map(relatedInvites, 'role');

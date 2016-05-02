@@ -7,7 +7,7 @@
     .factory('AppService', AppService);
 
   function App() {
-    this.app_type = '';
+    this.app_type = 'endpoint_app';
     this.app_secret = '';
     this.encryption_key = '';
     this.redirect_urls = [{
@@ -70,17 +70,13 @@
     var service = {
       newApp: newApp,
       getAllApps: getAllApps,
-      getApp,
-      getApp,
+      getApp: getApp,
       updateApp: updateApp,
       createApp: createApp,
       deleteApp: deleteApp,
       getModel: getModel,
-      initAppModel: initAppModel,
       setModelAppList: setModelAppList,
-      getModelAppList: getModelAppList,
-      setModelProjectOrgId: setModelProjectOrgId,
-      getModelProjectOrgId: getModelProjectOrgId
+      getModelAppList: getModelAppList
     }
 
     return service;
@@ -121,10 +117,6 @@
       return model;
     }
 
-    function initAppModel() {
-      model = {};
-    }
-
     function setModelAppList(appList) {
       model.appList = angular.copy(appList);
     }
@@ -132,14 +124,5 @@
     function getModelAppList() {
       return angular.copy(model.appList);
     }
-
-    function setModelProjectOrgId(orgId) {
-      model.projectOrgId = orgId;
-    }
-
-    function getModelProjectOrgId() {
-      return model.projectOrgId;
-    }
-
   }
 })();

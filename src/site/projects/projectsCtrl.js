@@ -7,8 +7,10 @@
     .controller('ProjectsCtrl', ProjectsCtrl);
 
   /* @ngInject */
-  function ProjectsCtrl($state, $log, IdpClient, IfProjects, IfStudioClient, ProjectsService) {
+  function ProjectsCtrl($state, $log, ProjectsService) {
     var vm = this;
+
+    vm.myProjects = {};
 
     vm.removeProject = removeProject;
     vm.loadAllProjects = loadAllProjects;
@@ -34,6 +36,11 @@
     }
 
     function launchModal(projectI) {
+      if (projectI >= 0) {
+        var orgId = vm.myProjects[projectI].org_id;
+        ProjectsService.setCurrProjectOrgId(orgId);
+      }
+
       $state.go("Projects.Modal", {
         'projectI': projectI
       });

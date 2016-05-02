@@ -7,7 +7,7 @@
     .controller('ProjectModalCtrl', ProjectModalCtrl);
 
   /* @ngInject */
-  function ProjectModalCtrl($log, $state, $stateParams, IfStudioClient, ProjectsService) {
+  function ProjectModalCtrl($log, $state, $stateParams, ProjectsService) {
     var vm = this;
 
     vm.projectI = undefined;
@@ -39,19 +39,9 @@
 
     function done() {
       if (vm.projectI < 0) {
-        IfStudioClient.registerProject(vm.modal, function(data) {
-          $log.log("Created new project", data);
-          $state.go('Projects');
-        }, function(error) {
-          $log.log("Failed to create project", error);
-        });
+        ProjectsService.createProject(vm.modal);
       } else {
-        var orgId = vm.myProjects[vm.projectI].org_id;
-        IfStudioClient.updateProject(orgId, vm.modal, function(data) {
-          $log.log("updated project", data);
-        }, function(error) {
-          $log.log("Failed to update project", error);
-        });
+        ProjectsService.updateProject(vm.projectI, vm.modal);
       }
     }
 
@@ -72,9 +62,8 @@
 
       // populate UI
       if (vm.projectI >= 0) {
-        var orgId = vm.myProjects[vm.projectI].org_id;
-        IfStudioClient.getProjectDetails(orgId, function(data) {
-          vm.modal = data;
+        ProjectsService.readProject(vm.projectI).then(function(data) {
+          vm.modal = angular.copy(data);
         });
       }
 

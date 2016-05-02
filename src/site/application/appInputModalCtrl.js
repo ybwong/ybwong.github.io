@@ -7,13 +7,14 @@
     .controller('AppInputModalCtrl', AppInputModalCtrl);
 
   /* *ngInject */
-  function AppInputModalCtrl($log, $state, $stateParams, IfStudioClient, AppService) {
+  function AppInputModalCtrl($log, $state, $stateParams, IfStudioClient, AppService, ProjectsService) {
     var vm = this;
 
     vm.appIndex = undefined;
+    vm.isDisabled = false;
 
     vm.app = {
-      app_type: "",
+      app_type: "endpoint_app",
       app_secret: "",
       encryption_key: "",
       redirect_urls: [],
@@ -43,14 +44,14 @@
         }
       );
       if (vm.appIndex < 0) {
-        AppService.createApp(AppService.getModelProjectOrgId(), app, function(appId) {
+        AppService.createApp(ProjectsService.getCurrProjectOrgId(), app, function(appId) {
           vm.app.client_id = appId.client_id;
           vm.appModel.appList[vm.appModel.appList.length] = angular.copy(vm.app);
         }, function() {
           // Notification failure
         });
       } else {
-        AppService.updateApp(AppService.getModelProjectOrgId(), vm.app.client_id, app, function(appId) {
+        AppService.updateApp(ProjectsService.getCurrProjectOrgId(), vm.app.client_id, app, function(appId) {
           vm.appModel.appList[vm.appIndex] = angular.copy(vm.app);
           vm.appModel.appList[vm.appIndex].redirect_urls = vm.appModel.appList[vm.appIndex].redirect_urls.map(
             function(elem) {
@@ -81,9 +82,11 @@
       // populate UI
       if (vm.appIndex < 0) {
         vm.app = AppService.newApp();
+        vm.isDisabled = false;
       } else {
+        vm.isDisabled = true;
         vm.clientId = vm.appModel.appList[vm.appIndex].client_id;
-        AppService.getApp(AppService.getModelProjectOrgId(), vm.clientId,
+        AppService.getApp(ProjectsService.getCurrProjectOrgId(), vm.clientId,
           function(data) {
             vm.app = data;
             vm.app.redirect_urls = vm.app.redirect_urls.map(

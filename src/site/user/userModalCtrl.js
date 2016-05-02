@@ -6,7 +6,7 @@
     .controller('UserModalCtrl', UserModalCtrl);
 
   /* @ngInject */
-  function UserModalCtrl($state, $stateParams, ProjectUsersMgmService, AppService, ProjectModel) {
+  function UserModalCtrl($state, $stateParams, ProjectUsersMgmService, AppService, ProjectsService) {
     var vm = this;
 
     vm.modal = {
@@ -36,21 +36,21 @@
     }
 
     function updateUserRoles() {
-      var orgId = AppService.getModelProjectOrgId();
+      var orgId = ProjectsService.getCurrProjectOrgId();
       var userRoles = {
         user_roles: []
       };
       var rolesChecked = _.filter(vm.modal.roles, function(role) {
         return role.checked;
       });
-      userRoles.user_roles =  _.map(rolesChecked, 'id');
+      userRoles.user_roles = _.map(rolesChecked, 'id');
       return ProjectUsersMgmService.updateUserRoles(orgId, vm.modal.account_id, userRoles);
     }
 
     function done() {
       if (vm.userI >= 0) {
         updateUserRoles().finally(function() {
-          ProjectModel.listUsers();
+          ProjectsService.listUsers();
         });
       }
     }
@@ -59,11 +59,15 @@
       vm.role = $stateParams.role;
       vm.userI = $stateParams.userI;
 
+      vm.modal.roles = _.map(ProjectsService.getRoles(), function(role) {
+        return { 'checked': false, 'id': role };
+      });
+
       if (vm.userI >= 0) {
         vm.isDisabled = true;
-        var user = angular.copy(ProjectModel.get().users[vm.userI]);
+        var user = angular.copy(ProjectsService.getModel().users[vm.userI]);
         vm.modal.account_id = user.account_id;
-        var relatedUsers = _.filter(ProjectModel.get().users, function(user) {
+        var relatedUsers = _.filter(ProjectsService.getModel().users, function(user) {
           return vm.modal.account_id === user.account_id;
         });
         var relatedRoles = _.map(relatedUsers, 'role');

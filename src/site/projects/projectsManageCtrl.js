@@ -43,29 +43,21 @@
     }
 
     function loadProject() {
-      var deferred = $q.defer();
-      ProjectsService.readProject(vm.projectIndex).then(function(data) {
+      return ProjectsService.readProject(vm.projectIndex).then(function(data) {
         $log.log("got project details", data);
-        deferred.resolve(data);
       }, function(error) {
         $log.log("Failed to get project", error);
-        deferred.reject(error);
       });
-      return deferred.promise;
     }
 
     function loadApps() {
-      var deferred = $q.defer();
-      AppService.getAllApps(ProjectsService.getCurrProjectOrgId(), function(data) {
+      return AppService.getAllApps(ProjectsService.getCurrProjectOrgId(), function(data) {
         AppService.setModelAppList(data);
         vm.appList = AppService.getModel().appList;
-        deferred.resolve(data);
       }, function(error) {
         AppService.setModelAppList([]);
         vm.appList = AppService.getModel().appList;
-        deferred.reject(error);
       });
-      return deferred.promise;
     }
 
     function loadUsers() {

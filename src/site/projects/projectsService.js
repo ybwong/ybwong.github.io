@@ -78,6 +78,25 @@
       return deferred.promise;
     }
 
+    function rolesChangeUpdate() {
+      var newRoles = _.concat(model.defaultRoles, getCustomRoles());
+      var deletedRoles = _.difference(model.roles, newRoles);
+      if (deletedRoles.length <= 0) {
+        return;
+      }
+      _.forEach(deletedRoles, function(deletedRole) {
+        delete model.inviteListByRole[deletedRole];
+        delete model.userListByRole[deletedRole];
+      });
+      _.remove(model.invites, function(invite) {
+        return _.includes(deletedRoles, invite.role);
+      });
+      _.remove(model.users, function(user) {
+        return _.includes(deletedRoles, user.role);
+      });
+      model.roles = newRoles;
+    }
+
     function updateProject(projectI, project) {
       var deferred = $q.defer();
       newProject = {
@@ -94,7 +113,7 @@
         // { org_id, org_name, org_info, org_type }
         angular.copy(data, model.projects[projectI]);
         angular.copy(newProject, model.currProject);
-        model.roles = _.concat(model.defaultRoles, getCustomRoles());
+        rolesChangeUpdate();
         deferred.resolve(data);
       }, function(error) {
         $log.log("Failed to update project", error);
@@ -186,7 +205,7 @@
     function getInvites() {
       return model.invites;
     }
-  
+
     function listInvites() {
       var inviteListByRolePromises = [];
       _.each(model.roles, function(role) {

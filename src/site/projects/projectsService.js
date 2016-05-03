@@ -82,18 +82,17 @@
       var newRoles = _.concat(model.defaultRoles, getCustomRoles());
       var deletedRoles = _.difference(model.roles, newRoles);
       if (deletedRoles.length <= 0) {
-        return;
+        _.forEach(deletedRoles, function(deletedRole) {
+          delete model.inviteListByRole[deletedRole];
+          delete model.userListByRole[deletedRole];
+        });
+        _.remove(model.invites, function(invite) {
+          return _.includes(deletedRoles, invite.role);
+        });
+        _.remove(model.users, function(user) {
+          return _.includes(deletedRoles, user.role);
+        });
       }
-      _.forEach(deletedRoles, function(deletedRole) {
-        delete model.inviteListByRole[deletedRole];
-        delete model.userListByRole[deletedRole];
-      });
-      _.remove(model.invites, function(invite) {
-        return _.includes(deletedRoles, invite.role);
-      });
-      _.remove(model.users, function(user) {
-        return _.includes(deletedRoles, user.role);
-      });
       model.roles = newRoles;
     }
 
@@ -221,12 +220,13 @@
       });
 
       var _promise = $q.allSettled(inviteListByRolePromises).then(function() {
-        model.invites = [];
+        var invites = [];
         _.each(model.roles, function(role) {
           if (model.inviteListByRole[role].length > 0) {
-            model.invites = _.concat(model.invites, model.inviteListByRole[role]);
+            invites = _.concat(invites, model.inviteListByRole[role]);
           }
         });
+        model.invites = invites;
       });
 
       return _promise;
@@ -256,7 +256,6 @@
     }
 
     function listUsers() {
-      model.users = [];
 
       // var _p = listUsersByRole;
       // while () {
@@ -277,11 +276,13 @@
       });
 
       var _promise = $q.allSettled(model.userListByRolePromises).then(function() {
+        var users = [];
         _.each(model.roles, function(role) {
           if (model.userListByRole[role].length > 0) {
-            model.users = _.concat(model.users, model.userListByRole[role]);
+            users = _.concat(users, model.userListByRole[role]);
           }
         });
+        model.users = users;
       });
 
       return _promise;

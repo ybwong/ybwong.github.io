@@ -58,7 +58,9 @@
       getInvites: getInvites,
       listInvites: listInvites,
       deleteInviteRole: deleteInviteRole,
-      listUsers: listUsers
+      listUsers: listUsers,
+      deleteUserRole: deleteUserRole,
+      updateUserRoles: updateUserRoles
     };
 
     function getRoles() {
@@ -73,6 +75,7 @@
         model.roles = _.concat(model.defaultRoles, getCustomRoles());
         deferred.resolve(data);
       }, function(error) {
+        model.roles = _.concat(model.defaultRoles, getCustomRoles());
         deferred.reject(error);
       });
       return deferred.promise;
@@ -250,6 +253,9 @@
     }
 
     function getCustomRoles() {
+      if (!model.currProject.org_roles) {
+        return [];
+      }
       var roles = _.map(model.currProject.org_roles, 'role_name');
       roles = _.sortBy(roles);
       return roles;
@@ -286,6 +292,43 @@
       });
 
       return _promise;
+    }
+
+    function updateUserRoles(orgId, user) {
+      var deferred = $q.defer();
+      var invite = {
+        'id_key': user.username,
+        'id_type': 'email',
+        'user_roles': user.user_roles
+      };
+
+      ProjectUsersMgmService.deleteUser(orgId, user.account_id).then(function() {
+        if (user.user_roles.length > 0) {
+          var invites = [invite];
+          ProjectUsersMgmService.addInvites(orgId, invites).finally(function() {
+            deferred.resolve();
+          });
+        } else {
+          deferred.resolve();
+        }
+      });
+      return deferred.promise;
+    }
+
+    function deleteUserRole(index) {
+      var userI = model.users[index];
+
+      var relatedUsers = _.filter(model.users, function(user) {
+        return userI.account_id === user.account_id;
+      });
+      userI.user_roles = _.map(relatedUsers, 'role');
+      userI.user_roles = _.filter(userI.user_roles, function(role) {
+        return role !== userI.role;
+      });
+
+      return updateUserRoles(model.currProjectOrgId, userI).then(function() {
+        model.users.splice(index, 1);
+      });
     }
   }
 })();

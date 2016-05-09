@@ -75,6 +75,7 @@
         });
       } else {
         addRoles().finally(function() {
+          ProjectsService.listUsers();          
           ProjectsService.listInvites();
         });
       }

@@ -11,6 +11,7 @@
     var vm = this;
 
     vm.launchModal = launchModal;
+    vm.deleteUserRole = deleteUserRole;
 
     //////////
 
@@ -19,6 +20,10 @@
         'userI': userI,
         'role': role
       });
+    }
+
+    function deleteUserRole(index) {
+      ProjectsService.deleteUserRole(index);
     }
 
     function init() {

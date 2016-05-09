@@ -37,14 +37,16 @@
 
     function updateUserRoles() {
       var orgId = ProjectsService.getCurrProjectOrgId();
-      var userRoles = {
-        user_roles: []
+      var user = {
+        user_roles: [],
+        account_id: vm.modal.account_id,
+        username: vm.modal.username
       };
       var rolesChecked = _.filter(vm.modal.roles, function(role) {
         return role.checked;
       });
-      userRoles.user_roles = _.map(rolesChecked, 'id');
-      return ProjectUsersMgmService.updateUserRoles(orgId, vm.modal.account_id, userRoles);
+      user.user_roles = _.map(rolesChecked, 'id');
+      return ProjectsService.updateUserRoles(orgId, user);
     }
 
     function done() {
@@ -67,6 +69,10 @@
         vm.isDisabled = true;
         var user = angular.copy(ProjectsService.getModel().users[vm.userI]);
         vm.modal.account_id = user.account_id;
+        vm.modal.username = user.username;
+        vm.modal.first_name = user.first_name;
+        vm.modal.last_name = user.last_name;        
+
         var relatedUsers = _.filter(ProjectsService.getModel().users, function(user) {
           return vm.modal.account_id === user.account_id;
         });

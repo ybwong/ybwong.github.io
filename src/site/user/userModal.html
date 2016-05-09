@@ -8,8 +8,16 @@
       <div class="modal-body">
         <form name="manageApp" ng-submit="userModalCtrl.submitProjectUpdate()" novalidate>
           <div class="form-group">
-            <label>Account ID</label>
-            <input ng-model="userModalCtrl.modal.account_id" type="text" class="form-control" value="{{userModalCtrl.modal.account_id}}" ng-disabled="userModalCtrl.isDisabled" ng-required="required">
+            <label>Username</label>
+            <input ng-model="userModalCtrl.modal.username" type="text" class="form-control" value="{{userModalCtrl.modal.username}}" ng-disabled="userModalCtrl.isDisabled" ng-required="required">
+          </div>
+          <div class="form-group">
+            <label>First name</label>
+            <input ng-model="userModalCtrl.modal.first_name" type="text" class="form-control" value="{{userModalCtrl.modal.first_name}}" ng-disabled="userModalCtrl.isDisabled" ng-required="required">
+          </div>
+          <div class="form-group">
+            <label>Last name</label>
+            <input ng-model="userModalCtrl.modal.last_name" type="text" class="form-control" value="{{userModalCtrl.modal.last_name}}" ng-disabled="userModalCtrl.isDisabled" ng-required="required">
           </div>
           <div class="form-group">
             <label>Role</label>

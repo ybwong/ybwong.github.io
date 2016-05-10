@@ -84,7 +84,7 @@
     function rolesChangeUpdate() {
       var newRoles = _.concat(model.defaultRoles, getCustomRoles());
       var deletedRoles = _.difference(model.roles, newRoles);
-      if (deletedRoles.length <= 0) {
+      if (deletedRoles.length > 0) {
         _.forEach(deletedRoles, function(deletedRole) {
           delete model.inviteListByRole[deletedRole];
           delete model.userListByRole[deletedRole];

@@ -7,11 +7,8 @@
     .factory('UserInviteService', UserInviteService);
 
   /* @ngInject */
-  function UserInviteService($resource) {
-    // var apiBase = 'http://localhost:8080/api/v1';
-    var apiBase = 'https://dev-portal-service.appspot.com/api/v1';    
-
-    return $resource(apiBase + '/invites/:orgId/:action', {
+  function UserInviteService($resource, IfStudioClient) {
+    return $resource(IfStudioClient.apiBase + 'invites/:orgId/:action', {
       orgId: '@orgId',
       action: '@action'
     }, {

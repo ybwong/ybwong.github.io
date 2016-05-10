@@ -1,10 +1,10 @@
 (function(){
 	var app = angular.module('idp-oauth-client', []);
 	app.factory('IdpClient', function($log, $window, $http, $httpParamSerializerJQLike){
-		var clientId='b80a9eb3-8b8e-46ef-ad61-77309f9bedb4';
+		var clientId='b80a9eb3-8b8e-46ef-ad61-77309f9bedb4';		
+		var idpHost='https://if-idp.appspot.com';		
 		var clientSecret='';
 		var clientAuth=btoa(clientId+':'+clientSecret);
-		var idpHost='https://if-idp.appspot.com';
 		var errorPage;
 		var redirectUrl=$window.location.protocol + '//' + $window.location.host;
 		var userInfo;

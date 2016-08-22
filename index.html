@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html ng-app="devPortal">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- bower:css -->
+    <link rel="stylesheet" href="angular-material/angular-material.css"/>
+    <!-- endbower -->
+
+    <!-- Bootstrap -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="styles/app.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endinject -->
+
+    <!-- bower:js -->
+    <script src="jquery/dist/jquery.js"></script>
+    <script src="bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+    <script src="angular/angular.js"></script>
+    <script src="angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="lodash/lodash.js"></script>
+    <script src="angular-resource/angular-resource.js"></script>
+    <script src="angular-promise-extras/angular-promise-extras.js"></script>
+    <script src="angular-animate/angular-animate.js"></script>
+    <script src="angular-aria/angular-aria.js"></script>
+    <script src="angular-messages/angular-messages.js"></script>
+    <script src="angular-material/angular-material.js"></script>
+    <script src="angular-breadcrumb/release/angular-breadcrumb.js"></script>
+    <!-- endbower -->
+
+    <!-- JavaScript -->
+    <!-- inject:js -->
+    <script src="js/apiDocsTemplates.js"></script>
+    <script src="js/appsTemplates.js"></script>
+    <script src="js/devApp.js"></script>
+    <script src="js/gitHubClient.js"></script>
+    <script src="js/idpOauthClient.js"></script>
+    <script src="js/ifStudioClient.js"></script>
+    <script src="js/pageTemplates.js"></script>
+    <script src="js/projectsTemplates.js"></script>
+    <script src="js/searchTemplates.js"></script>
+    <script src="site/application/appInputModalCtrl.js"></script>
+    <script src="site/application/appService.js"></script>
+    <script src="site/application/applicationCtrl.js"></script>
+    <script src="site/common/landingCtrl.js"></script>
+    <script src="site/core/app.js"></script>
+    <script src="site/core/httpHeaderInterceptor.js"></script>
+    <script src="site/home/sectionsCtrl.js"></script>
+    <script src="site/login/loginCtrl.js"></script>
+    <script src="site/projects/projectEditCtrl.js"></script>
+    <script src="site/projects/projectModalCtrl.js"></script>
+    <script src="site/projects/projectsCtrl.js"></script>
+    <script src="site/projects/projectsManageCtrl.js"></script>
+    <script src="site/projects/projectsService.js"></script>
+    <script src="site/user/inviteModalCtrl.js"></script>
+    <script src="site/user/invitesCtrl.js"></script>
+    <script src="site/user/projectUsersMgmService.js"></script>
+    <script src="site/user/userInviteService.js"></script>
+    <script src="site/user/userModalCtrl.js"></script>
+    <script src="site/user/userRegisterService.js"></script>
+    <script src="site/user/usersCtrl.js"></script>
+    <!-- endinject -->
+
+    <title>Integratingfactor.com Developer Portal</title>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body ng-controller="DevPortalController as portalCtrl">
+    <!-- google analytics stuff -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-75146451-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <div ui-view></div>
+<!--     <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <page-header></page-header>
+        <div ui-view></div>
+        <page-footer></page-footer>
+      </div>
+    </div> -->
+  </body>
+</html>

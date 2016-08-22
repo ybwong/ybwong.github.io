@@ -1,0 +1,30 @@
+<div ui-view class="if-page">
+  <div align="left">
+    <md-toolbar class="if-toolbar">
+      <div class="md-toolbar-tools">
+        <h1>Projects</h1>
+        <span flex></span>
+        <md-button aria-label="Add New Project" class="md-icon-button md-raised md-mini" ng-click="projects.launchModal(-1)">
+          <md-icon md-font-set="material-icons" style="font-size:20px">add</md-icon>
+        </md-button>
+        <md-button aria-label="Edit Project" class="md-icon-button md-raised md-mini" ng-disabled="projects.isEditDisabled" ng-click="projects.editProject()">
+          <md-icon md-font-set="material-icons" style="font-size:20px">edit</md-icon>
+        </md-button>
+        <md-button aria-label="Delete Project" class="md-icon-button md-raised md-mini" ng-disabled="projects.isDeleteDisabled" ng-click="projects.removeProject()">
+          <md-icon md-font-set="material-icons" style="font-size:20px">delete</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-list flex>
+      <md-list-item class="md-2-line" ng-repeat="project in projects.myProjects track by $index" ng-click="projects.toggleProject($index)" ng-class="{if_project_selected: projects.isProjectSelected[$index]}">
+        <div class="md-list-item-text" layout="column">
+          <h3>{{project.org_name}}</h3>
+          <p>{{project.org_info}}</p>
+        </div>
+        <md-divider ng-if="!$last"></md-divider>
+      </md-list-item>
+    </md-list>
+    <p class="lead " ng-hide="projects.myProjects.length ">You do not have any projects currently</p>
+  </div>
+</div>
+<div ui-view="modal " ng-class="projects.formClass "></div>

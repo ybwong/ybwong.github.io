@@ -1,0 +1,23 @@
+<div ng-controller="InvitesCtrl as inviteManager">
+  <div class="md-toolbar-tools">
+    <span flex></span>
+    <md-button aria-label="Add New Project" class="md-icon-button md-raised md-mini" ng-click="inviteManager.launchModal(-1,'')">
+      <md-icon md-font-set="material-icons" style="font-size:20px">add</md-icon>
+    </md-button>
+    <md-button aria-label="Edit Project" class="md-icon-button md-raised md-mini" ng-disabled="inviteManager.isEditDisabled" ng-click="inviteManager.launchModal()">
+      <md-icon md-font-set="material-icons" style="font-size:20px">edit</md-icon>
+    </md-button>
+    <md-button aria-label="Delete Project" class="md-icon-button md-raised md-mini" ng-disabled="inviteManager.isDeleteDisabled" ng-click="inviteManager.deleteInviteRole()">
+      <md-icon md-font-set="material-icons" style="font-size:20px">delete</md-icon>
+    </md-button>
+  </div>
+  <md-list flex>
+    <md-list-item class="md-3-line" ng-repeat="invite in inviteManager.model.invites" ng-click="inviteManager.toggleInvite($index,invite.role)" ng-class="{if_project_selected: inviteManager.isInviteSelected[$index]}">
+      <div class="md-list-item-text" layout="column">
+        <h3>{{invite.id_key}}</h3>
+        <p>{{invite.id_type}}</p>
+        <p>{{invite.role}}</p>
+      </div>
+      <md-divider ng-if="!$last"></md-divider>
+  </md-list>
+</div>

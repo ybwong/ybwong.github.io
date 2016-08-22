@@ -1,0 +1,38 @@
+<div class="side-form">
+  <div class="background"></div>
+  <div class="content">
+    <md-toolbar class="if-toolbar">
+      <div class="md-toolbar-tools">
+        <h1>
+          {{projectManage.currProject.org_name}}
+        </h1>
+        <span flex></span>
+        <md-button aria-label="Edit Project" class="md-icon-button md-raised md-mini" ng-click="projectManage.launchProjectModal(projectManage.projectIndex)">
+          <md-icon md-font-set="material-icons" style="font-size:20px">edit</md-icon>
+        </md-button>
+        <md-button aria-label="Close Project" class="md-icon-button md-raised md-mini" ng-click="projectManage.close()">
+          <md-icon md-font-set="material-icons" style="font-size:20px">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <hr></hr>
+    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="Applications">
+        <md-content>
+          <div ng-include="'/site/application/application.html'"></div>
+        </md-content>
+      </md-tab>
+      <md-tab label="Users">
+        <md-content>
+          <div ng-include="'/site/user/users.html'"></div>
+        </md-content>
+      </md-tab>
+      <md-tab label="Invites">
+        <md-content>
+          <div ng-include="'/site/user/invites.html'"></div>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </div>
+</div>
+<div ui-view="modal2" ng-class="projectManage.formClass"></div>

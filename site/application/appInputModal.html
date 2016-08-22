@@ -1,0 +1,55 @@
+<div class="side-form">
+  <div class="background"></div>
+  <div class="content">
+    <button type="button" class="close" ng-click="appInputCtrl.close()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4>Manage application</h4>
+    <form name="manageApp" ng-submit="appInputCtrl.submitProjectUpdate()" novalidate>
+      <div class="form-group">
+        <label>Application Name</label>
+        <input ng-model="appInputCtrl.app.app_name" type="text" class="form-control" value="{{appInputCtrl.app.app_name}}" ng-required="required">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input ng-model="appInputCtrl.app.app_info" type="textarea" class="form-control" value="{{appInputCtrl.app.app_info}}" ng-required="required">
+      </div>
+      <div class="form-group">
+        <label>Type</label>
+        <select class="form-control" ng-model="appInputCtrl.app.app_type" ng-disabled="appInputCtrl.isDisabled">
+          <option>backend_app</option>
+          <option>endpoint_app</option>
+          <option>service_app</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Secret</label>
+        <input ng-model="appInputCtrl.app.app_secret" type="textarea" class="form-control" value="{{appInputCtrl.app.app_secret}}" ng-required="required">
+      </div>
+      <div class="form-group">
+        <label>Encription Key</label>
+        <input ng-model="appInputCtrl.app.encryption_key" type="textarea" class="form-control" value="{{appInputCtrl.app.encryption_key}}" ng-required="required">
+      </div>
+      <div class="form-group">
+        <label>Privacy URL</label>
+        <input ng-model="appInputCtrl.app.privacy_url" type="textarea" class="form-control" value="{{appInputCtrl.app.privacy_url}}" ng-required="required">
+      </div>
+      <div class="form-group">
+        <label>Redirect URL(s)</label>
+        <button class="btn btn-success pull-right" ng-click="appInputCtrl.add()">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+        <div ng-repeat="redirectUrl in appInputCtrl.app.redirect_urls track by $index">
+          <div class="modal-row-container">
+            <input ng-model="redirectUrl.url" type="textarea" class="form-control" ng-required="required">
+            <button class="btn btn-danger pull-right" ng-click="appInputCtrl.remove($index)">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <button type="button" class="btn btn-default" ng-click="appInputCtrl.close()">Close</button>
+    <button type="button" class="btn btn-primary" ng-click="appInputCtrl.done()">Done</button>
+  </div>
+</div>

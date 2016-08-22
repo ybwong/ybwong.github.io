@@ -1,0 +1,29 @@
+<md-toolbar layout="row" class="if-toolbar">
+  <md-button class="menu" hide-gt-sm ng-click="landing.toggleSideMenu()" aria-label="Show User List">
+    <md-icon md-svg-icon="menu"></md-icon>
+  </md-button>
+  <!-- <h1>If Portal</h1> -->
+  <div ncy-breadcrumb class="if-breadcrumb"></div>
+</md-toolbar>
+<!-- <div flex layout="row" style="height:400px; overflow:scroll"> -->
+<div flex layout="row">
+  <md-sidenav ng-click="landing.toggleSideMenu()" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2">
+    <md-list>
+      <md-list-item ng-repeat="it in landing.tabs">
+        <md-button ui-sref="{{it.state}}" ng-click="landing.selectTab(it)" ng-class="{'selected' : it === landing.selected }">
+          <md-icon md-svg-icon="{{it.avatar}}" class="avatar"></md-icon>
+          {{it.name}}
+        </md-button>
+      </md-list-item>
+    </md-list>
+  </md-sidenav>
+  <md-content flex id="content" layout-padding>
+    <div ui-view></div>
+    <!-- <md-icon md-svg-icon="{{landing.selected.avatar}}" class="avatar"></md-icon>
+    <h2>{{landing.selected.name}}</h2>
+    <p>{{landing.selected.content}}</p>
+    <md-button class="share" md-no-ink ng-click="landing.makeContact(landing.selected)" aria-label="Share with {{ landing.selected.name }}">
+      <md-icon md-svg-icon="share"></md-icon>
+    </md-button> -->
+  </md-content>
+</div>

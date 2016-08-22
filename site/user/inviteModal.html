@@ -1,0 +1,33 @@
+<div class="side-form">
+  <div class="background"></div>
+  <div class="content">
+    <button type="button" class="close" ng-click="inviteModalCtrl.close()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4>Manage invite</h4>
+    <form name="manageApp" ng-submit="inviteModalCtrl.submitProjectUpdate()" novalidate>
+      <div class="form-group">
+        <label>Key ID</label>
+        <input ng-model="inviteModalCtrl.modal.id_key" type="text" class="form-control" value="{{inviteModalCtrl.modal.id_key}}" ng-disabled="inviteModalCtrl.isDisabled" ng-required="required">
+      </div>
+      <div class="form-group">
+        <label for="sel1">Key Type</label>
+        <select class="form-control" id="sel1" ng-model="inviteModalCtrl.modal.id_type" ng-disabled="inviteModalCtrl.isDisabled">
+          <option>email</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Role</label>
+        <div ng-repeat="role in inviteModalCtrl.modal.roles track by $index">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="role.checked"> {{role.id}}
+            </label>
+          </div>
+        </div>
+      </div>
+    </form>
+    <button type="button" class="btn btn-default" ng-click="inviteModalCtrl.close()">Close</button>
+    <button type="button" class="btn btn-primary" ng-click="inviteModalCtrl.done()">Done</button>
+  </div>
+</div>

@@ -92,6 +92,7 @@
       });
 
       if (vm.inviteI >= 0) {
+        vm.title = 'Edit Invite';
         vm.isDisabled = true;        
         var invite = angular.copy(ProjectsService.getModel().invites[vm.inviteI]);
         vm.modal.id_key = invite.id_key;
@@ -105,6 +106,7 @@
         });
       }
       else {
+        vm.title = 'Add New Invite';
         vm.isDisabled = false;
       }
 

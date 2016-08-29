@@ -1,36 +1,42 @@
 <div class="side-form">
   <div class="background"></div>
   <div class="content">
-    <button type="button" class="close" ng-click="project.close()" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    <h1>Manage project</h1>
-    <form name="manageApp" ng-submit="project.submitProjectUpdate()" novalidate>
-      <div class="form-group">
-        <label>Project Name</label>
-        <input ng-model="project.modal.org_name" type="text" class="form-control" value="{{project.modal.org_name}}" ng-required="required">
+    <md-toolbar class="if-toolbar">
+      <div class="md-toolbar-tools">
+        <md-button aria-label="Close Edit Project" class="md-icon-button  md-mini" ng-click="project.close()">
+          <md-icon md-font-set="material-icons">keyboard_arrow_left</md-icon>
+        </md-button>
+        <h1>{{project.title}}</h1>
       </div>
-      <div class="form-group">
-        <label>Description</label>
-        <input ng-model="project.modal.org_info" type="textarea" class="form-control" value="{{project.modal.org_info}}" ng-required="required">
-      </div>
-      <div class="form-group">
-        <label>Custom Role(s)</label>
-        <button class="btn btn-success pull-right" ng-click="project.add()">
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        </button>
-        <div ng-repeat="org_role in project.modal.org_roles track by $index">
-          <div class="modal-row-container">
-            <input ng-model="org_role.role_name" type="text" placeholder="Role name" class="form-control" ng-required="required">
-            <input ng-model="org_role.role_description" type="text" placeholder="Role description" class="form-control" ng-required="required">
-            <button class="btn btn-danger pull-right" ng-click="project.remove($index)">
-              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-            </button>
+    </md-toolbar>
+    <md-content layout-padding >
+      <form name="manageApp" ng-submit="project.submitProjectUpdate()" novalidate>
+        <div class="form-group">
+          <label>Project Name</label>
+          <input ng-model="project.modal.org_name" type="text" class="form-control" value="{{project.modal.org_name}}" ng-required="required">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <input ng-model="project.modal.org_info" type="textarea" class="form-control" value="{{project.modal.org_info}}" ng-required="required">
+        </div>
+        <div class="form-group">
+          <label>Custom Role(s)</label>
+          <button class="btn btn-success pull-right" ng-click="project.add()">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+          <div ng-repeat="org_role in project.modal.org_roles track by $index">
+            <div class="modal-row-container">
+              <input ng-model="org_role.role_name" type="text" placeholder="Role name" class="form-control" ng-required="required">
+              <input ng-model="org_role.role_description" type="text" placeholder="Role description" class="form-control" ng-required="required">
+              <button class="btn btn-danger pull-right" ng-click="project.remove($index)">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </form>
-    <button type="button" class="btn btn-default" ng-click="project.close()">Close</button>
-    <button type="button" class="btn btn-primary" ng-click="project.done()">Done</button>
+      </form>
+      <button type="button" class="btn btn-default" ng-click="project.close()">Close</button>
+      <button type="button" class="btn btn-primary" ng-click="project.done()">Save</button>
+    </md-content>
   </div>
 </div>

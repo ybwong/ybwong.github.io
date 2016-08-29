@@ -65,9 +65,13 @@
 
       // populate UI
       if (vm.projectI >= 0) {
+        vm.title = 'Edit Project';
         ProjectsService.readProject(vm.projectI).then(function(data) {
           vm.modal = angular.copy(data);
         });
+      }
+      else {
+        vm.title = 'Add New Project';
       }
 
       // $('#projectModal').modal();

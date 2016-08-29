@@ -5838,8 +5838,8 @@ button.close {
       height: 100%;
       overflow: auto;
       background: #fff;
-      padding: 20px;
-      border-left: 1px solid #e0e0e0; }
+      padding: 0px;
+      border-left: 0px solid #e0e0e0; }
     .side-form-80 > .side-form > .background {
       position: absolute;
       opacity: 0.8;
@@ -5894,8 +5894,8 @@ button.close {
       height: 100%;
       overflow: auto;
       background: #fff;
-      padding: 20px;
-      border-left: 1px solid #e0e0e0; }
+      padding: 0px;
+      border-left: 0px solid #e0e0e0; }
     .side-form-100 > .side-form > .background {
       position: absolute;
       opacity: 0.8;

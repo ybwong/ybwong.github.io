@@ -12,7 +12,7 @@
     </md-button>
   </div>
   <div id="projectApp" class="collapse in">
-    <md-list flex>
+    <md-list flex class="if-page">
       <md-list-item class="md-3-line" ng-repeat="app in applicationManager.model.appList" ng-click="applicationManager.toggleApplication($index)" ng-class="{if_project_selected: applicationManager.isApplicationSelected[$index]}">
         <div class="md-list-item-text" layout="column">
           <h3>{{app.app_name}}</h3>

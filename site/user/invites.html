@@ -11,7 +11,7 @@
       <md-icon md-font-set="material-icons" style="font-size:20px">delete</md-icon>
     </md-button>
   </div>
-  <md-list flex>
+  <md-list flex class="if-page">
     <md-list-item class="md-3-line" ng-repeat="invite in inviteManager.model.invites" ng-click="inviteManager.toggleInvite($index,invite.role)" ng-class="{if_project_selected: inviteManager.isInviteSelected[$index]}">
       <div class="md-list-item-text" layout="column">
         <h3>{{invite.id_key}}</h3>

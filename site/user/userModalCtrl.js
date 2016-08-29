@@ -68,12 +68,13 @@
       });
 
       if (vm.userI >= 0) {
+        vm.title = 'Edit User';
         vm.isDisabled = true;
         var user = angular.copy(ProjectsService.getModel().users[vm.userI]);
         vm.modal.account_id = user.account_id;
         vm.modal.username = user.username;
         vm.modal.first_name = user.first_name;
-        vm.modal.last_name = user.last_name;        
+        vm.modal.last_name = user.last_name;
 
         var relatedUsers = _.filter(ProjectsService.getModel().users, function(user) {
           return vm.modal.account_id === user.account_id;
@@ -83,6 +84,7 @@
           role.checked = relatedRoles.indexOf(role.id) > -1;
         });
       } else {
+        vm.title = 'Add New User';
         vm.isDisabled = false;
       }
 

@@ -83,9 +83,11 @@
 
       // populate UI
       if (vm.appIndex < 0) {
+        vm.title = 'Add New Application';        
         vm.app = AppService.newApp();
         vm.isDisabled = false;
       } else {
+        vm.title = 'Edit Application';
         vm.isDisabled = true;
         vm.clientId = vm.appModel.appList[vm.appIndex].client_id;
         AppService.getApp(ProjectsService.getCurrProjectOrgId(), vm.clientId,

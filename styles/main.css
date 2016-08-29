@@ -5848,17 +5848,17 @@ button.close {
       height: 100%; }
   .side-form-80.ng-enter, .side-form-80.ng-leave {
     /* transition on enter and leave for .5s */
-    transition: 0.75s; }
+    transition: 0.5s; }
   .side-form-80.ng-enter > .side-form > .content {
     right: -80%; }
   .side-form-80.ng-enter > .side-form > .background {
     opacity: 0; }
   .side-form-80.ng-enter-active > .side-form > .content {
-    transition: right 0.75s;
+    transition: right 0.5s;
     transition-timing-function: ease-in-out;
     right: 0; }
   .side-form-80.ng-enter-active > .side-form > .background {
-    transition: opacity 0.75s;
+    transition: opacity 0.5s;
     transition-timing-function: ease-in-out;
     opacity: 0.8; }
   .side-form-80.ng-leave > .side-form > .content {
@@ -5866,11 +5866,11 @@ button.close {
   .side-form-80.ng-leave > .side-form > .background {
     opacity: 0.8; }
   .side-form-80.ng-leave-active > .side-form > .content {
-    transition: right 0.75s;
+    transition: right 0.5s;
     transition-timing-function: ease-in-out;
     right: -100%; }
   .side-form-80.ng-leave-active > .side-form > .background {
-    transition: opacity 0.75s;
+    transition: opacity 0.5s;
     transition-timing-function: ease-in-out;
     opacity: 0; }
 
@@ -5904,17 +5904,17 @@ button.close {
       height: 100%; }
   .side-form-100.ng-enter, .side-form-100.ng-leave {
     /* transition on enter and leave for .5s */
-    transition: 0.75s; }
+    transition: 0.5s; }
   .side-form-100.ng-enter > .side-form > .content {
     right: -100%; }
   .side-form-100.ng-enter > .side-form > .background {
     opacity: 0; }
   .side-form-100.ng-enter-active > .side-form > .content {
-    transition: right 0.75s;
+    transition: right 0.5s;
     transition-timing-function: ease-in-out;
     right: 0; }
   .side-form-100.ng-enter-active > .side-form > .background {
-    transition: opacity 0.75s;
+    transition: opacity 0.5s;
     transition-timing-function: ease-in-out;
     opacity: 0.8; }
   .side-form-100.ng-leave > .side-form > .content {
@@ -5922,11 +5922,11 @@ button.close {
   .side-form-100.ng-leave > .side-form > .background {
     opacity: 0.8; }
   .side-form-100.ng-leave-active > .side-form > .content {
-    transition: right 0.75s;
+    transition: right 0.5s;
     transition-timing-function: ease-in-out;
     right: -100%; }
   .side-form-100.ng-leave-active > .side-form > .background {
-    transition: opacity 0.75s;
+    transition: opacity 0.5s;
     transition-timing-function: ease-in-out;
     opacity: 0; }
 

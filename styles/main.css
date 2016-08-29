@@ -5944,7 +5944,8 @@ button.close {
   margin-top: 10px; }
 
 .if-toolbar {
-  z-index: 0; }
+  z-index: 0;
+  padding-left: 0px; }
 
 .if_project_selected {
   background-color: rgba(158, 158, 158, 0.2); }
